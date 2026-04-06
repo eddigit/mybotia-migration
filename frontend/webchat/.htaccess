@@ -1,0 +1,11 @@
+<IfModule mod_headers.c>
+  Header set Cache-Control "no-cache, no-store, must-revalidate"
+  Header set Pragma "no-cache"
+  Header set Expires "0"
+</IfModule>
+
+# Gzip compression for proxied responses
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css application/javascript application/json image/svg+xml text/plain
+  SetEnvIfNoCase Request_URI \.(?:gif|jpe?g|png|ico|woff2?)$ no-gzip
+</IfModule>

@@ -1,0 +1,202 @@
+{
+  "meta": {
+    "lastTouchedVersion": "2026.3.28",
+    "lastTouchedAt": "2026-04-01T22:07:49.804Z"
+  },
+  "auth": {
+    "profiles": {
+      "anthropic:gillesk-x5": {
+        "provider": "anthropic",
+        "mode": "token"
+      },
+      "anthropic:manual": {
+        "provider": "anthropic",
+        "mode": "token"
+      },
+      "anthropic:api-key": {
+        "provider": "anthropic",
+        "mode": "token"
+      }
+    },
+    "order": {
+      "anthropic": [
+        "anthropic:api-key",
+        "anthropic:gillesk-x5",
+        "anthropic:manual"
+      ]
+    }
+  },
+  "agents": {
+    "defaults": {
+      "model": {
+        "primary": "anthropic/claude-sonnet-4-6",
+        "fallbacks": [
+          "groq/llama-3.3-70b-versatile"
+        ]
+      },
+      "memorySearch": {
+        "provider": "gemini"
+      },
+      "contextPruning": {
+        "mode": "cache-ttl",
+        "ttl": "1h"
+      },
+      "compaction": {
+        "mode": "safeguard"
+      },
+      "thinkingDefault": "off",
+      "heartbeat": {
+        "every": "30m",
+        "directPolicy": "block"
+      },
+      "sandbox": {
+        "mode": "non-main",
+        "scope": "agent",
+        "workspaceAccess": "none"
+      }
+    },
+    "list": [
+      {
+        "id": "lucy",
+        "default": true,
+        "name": "Lucy",
+        "workspace": "/home/gilles/.openclaw/workspace-lucy",
+        "model": {
+          "primary": "anthropic/claude-sonnet-4-6"
+        },
+        "identity": {
+          "name": "Lucy",
+          "emoji": "🏥",
+          "avatar": "https://res.cloudinary.com/dniurvpzd/image/upload/v1774210075/Capture_d_e%CC%81cran_2026-03-22_a%CC%80_21.06.45_d2bygw.png"
+        },
+        "sandbox": {
+          "mode": "off"
+        },
+        "tools": {
+          "profile": "full",
+          "allow": [
+            "exec",
+            "group:fs"
+          ],
+          "exec": {
+            "security": "full"
+          }
+        }
+      }
+    ]
+  },
+  "tools": {
+    "allow": [
+      "read",
+      "write",
+      "edit",
+      "exec",
+      "web_search"
+    ],
+    "deny": [
+      "browser",
+      "canvas"
+    ],
+    "elevated": {
+      "enabled": true,
+      "allowFrom": {
+        "whatsapp": [
+          "+33652345180"
+        ]
+      }
+    }
+  },
+  "commands": {
+    "native": "auto",
+    "nativeSkills": "auto",
+    "restart": true,
+    "ownerDisplay": "raw"
+  },
+  "channels": {
+    "whatsapp": {
+      "enabled": true,
+      "sendReadReceipts": true,
+      "dmPolicy": "allowlist",
+      "allowFrom": [
+        "+33652345180"
+      ],
+      "groupPolicy": "allowlist",
+      "groups": {
+        "120363407026699197@g.us": {
+          "requireMention": false
+        },
+        "120363407877862678@g.us": {
+          "requireMention": false
+        },
+        "120363423979135043@g.us": {
+          "requireMention": false
+        }
+      },
+      "debounceMs": 0,
+      "accounts": {
+        "lucy": {
+          "enabled": true,
+          "dmPolicy": "allowlist",
+          "groupPolicy": "allowlist",
+          "debounceMs": 0,
+          "name": "Lucy"
+        }
+      },
+      "mediaMaxMb": 50
+    },
+    "telegram": {
+      "enabled": true,
+      "dmPolicy": "pairing",
+      "groupPolicy": "open",
+      "streaming": "partial",
+      "accounts": {
+        "lucy": {
+          "name": "Lucy IGH",
+          "enabled": true,
+          "dmPolicy": "pairing",
+          "botToken": "<TELEGRAM_BOT_TOKEN>",
+          "groupPolicy": "allowlist",
+          "streaming": "partial"
+        }
+      }
+    }
+  },
+  "gateway": {
+    "port": 18795,
+    "mode": "local",
+    "bind": "loopback",
+    "controlUi": {
+      "enabled": true,
+      "allowedOrigins": [
+        "http://127.0.0.1:3001",
+        "https://admin.mybotia.com",
+        "https://lucy.mybotia.com",
+        "http://127.0.0.1:18795"
+      ],
+      "allowInsecureAuth": true,
+      "dangerouslyDisableDeviceAuth": true
+    },
+    "auth": {
+      "mode": "token",
+      "token": "e581649cd03d0d2c17666f2cb82703d02c3109ab08a899de"
+    },
+    "trustedProxies": [
+      "127.0.0.1",
+      "::1"
+    ],
+    "channelStaleEventThresholdMinutes": 120,
+    "channelMaxRestartsPerHour": 3,
+    "channelHealthCheckMinutes": 10
+  },
+  "plugins": {
+    "entries": {
+      "whatsapp": {
+        "enabled": true,
+        "config": {}
+      }
+    }
+  },
+  "session": {
+    "dmScope": "per-channel-peer"
+  }
+}

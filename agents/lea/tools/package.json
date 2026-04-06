@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "googleapis": "^171.4.0",
+    "jspdf": "^4.1.0"
+  }
+}

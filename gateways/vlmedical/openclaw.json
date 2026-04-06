@@ -1,0 +1,234 @@
+{
+  "meta": {
+    "lastTouchedVersion": "2026.3.23-2",
+    "lastTouchedAt": "2026-03-27T09:02:54.261Z"
+  },
+  "wizard": {
+    "lastRunAt": "2026-03-27T09:02:54.246Z",
+    "lastRunVersion": "2026.3.23-2",
+    "lastRunCommand": "doctor",
+    "lastRunMode": "local"
+  },
+  "auth": {
+    "profiles": {
+      "anthropic:gillesk-x5": {
+        "provider": "anthropic",
+        "mode": "oauth"
+      },
+      "anthropic:manual": {
+        "provider": "anthropic",
+        "mode": "oauth"
+      },
+      "anthropic:default": {
+        "provider": "anthropic",
+        "mode": "oauth"
+      },
+      "anthropic:api-key": {
+        "provider": "anthropic",
+        "mode": "token"
+      }
+    },
+    "order": {
+      "anthropic": [
+        "anthropic:api-key",
+        "anthropic:manual",
+        "anthropic:gillesk-x5",
+        "anthropic:default"
+      ]
+    }
+  },
+  "agents": {
+    "defaults": {
+      "model": {
+        "primary": "anthropic/claude-opus-4-6",
+        "fallbacks": [
+          "anthropic/claude-sonnet-4-6",
+          "groq/llama-3.3-70b-versatile"
+        ]
+      },
+      "pdfModel": "anthropic/claude-opus-4-6",
+      "pdfMaxBytesMb": 50,
+      "pdfMaxPages": 100,
+      "models": {
+        "anthropic/claude-opus-4-6": {},
+        "anthropic/claude-sonnet-4-6": {},
+        "groq/llama-3.3-70b-versatile": {}
+      },
+      "workspace": "/home/gilles/.openclaw-vlmedical/workspace",
+      "thinkingDefault": "off",
+      "heartbeat": {
+        "directPolicy": "block"
+      },
+      "sandbox": {
+        "mode": "all",
+        "workspaceAccess": "ro",
+        "scope": "agent",
+        "docker": {
+          "image": "openclaw-sandbox:bookworm-slim",
+          "readOnlyRoot": true,
+          "network": "bridge",
+          "user": "1000:1000",
+          "memory": "512m",
+          "cpus": 0.5
+        },
+        "prune": {
+          "idleHours": 12
+        }
+      }
+    },
+    "list": [
+      {
+        "id": "vlmedical-admin",
+        "default": true,
+        "name": "Max",
+        "workspace": "/home/gilles/.openclaw-vlmedical/workspace-vlmedical-admin",
+        "model": {
+          "primary": "anthropic/claude-opus-4-6",
+          "fallbacks": [
+            "anthropic/claude-sonnet-4-6",
+            "groq/llama-3.3-70b-versatile"
+          ]
+        },
+        "identity": {
+          "name": "Max ⚖️📋",
+          "emoji": "⚖️"
+        },
+        "sandbox": {
+          "mode": "off"
+        },
+        "tools": {
+          "profile": "full",
+          "allow": [
+            "exec",
+            "group:fs"
+          ],
+          "exec": {
+            "security": "full"
+          }
+        }
+      }
+    ]
+  },
+  "tools": {
+    "allow": [
+      "read",
+      "write",
+      "edit",
+      "exec",
+      "web_search"
+    ],
+    "deny": [
+      "browser",
+      "canvas"
+    ],
+    "elevated": {
+      "enabled": true,
+      "allowFrom": {
+        "whatsapp": [
+          "+33652345180"
+        ]
+      }
+    }
+  },
+  "bindings": [
+    {
+      "agentId": "vlmedical-admin",
+      "match": {
+        "channel": "whatsapp",
+        "accountId": "vlmedical-admin"
+      }
+    },
+    {
+      "agentId": "vlmedical-admin",
+      "match": {
+        "channel": "telegram",
+        "accountId": "vlmedical-admin"
+      }
+    }
+  ],
+  "commands": {
+    "native": "auto",
+    "nativeSkills": "auto",
+    "restart": false,
+    "ownerDisplay": "raw"
+  },
+  "channels": {
+    "whatsapp": {
+      "enabled": true,
+      "dmPolicy": "allowlist",
+      "groupPolicy": "allowlist",
+      "debounceMs": 0,
+      "accounts": {
+        "vlmedical-admin": {
+          "dmPolicy": "allowlist",
+          "groupPolicy": "allowlist",
+          "debounceMs": 0,
+          "allowFrom": [
+            "+33652345180",
+            "+33618244013"
+          ]
+        }
+      },
+      "mediaMaxMb": 50,
+      "allowFrom": [
+        "+33652345180",
+        "+33618244013"
+      ]
+    },
+    "telegram": {
+      "enabled": true,
+      "dmPolicy": "pairing",
+      "groupPolicy": "allowlist",
+      "accounts": {
+        "vlmedical-admin": {
+          "dmPolicy": "pairing",
+          "botToken": "<TELEGRAM_BOT_TOKEN>",
+          "groupPolicy": "allowlist",
+          "streaming": "partial"
+        }
+      },
+      "streaming": "partial"
+    }
+  },
+  "gateway": {
+    "port": 18790,
+    "mode": "local",
+    "bind": "loopback",
+    "controlUi": {
+      "enabled": true,
+      "allowedOrigins": [
+        "http://127.0.0.1:3001",
+        "https://max.mybotia.com",
+        "https://vlmedical.mybotia.com"
+      ],
+      "allowInsecureAuth": true,
+      "dangerouslyDisableDeviceAuth": true
+    },
+    "auth": {
+      "mode": "token",
+      "token": "fbbb3632c613522dba34c9065f757a8fa57ab3073d326a49"
+    },
+    "trustedProxies": [
+      "127.0.0.1",
+      "::1"
+    ],
+    "channelStaleEventThresholdMinutes": 120,
+    "channelMaxRestartsPerHour": 3,
+    "channelHealthCheckMinutes": 10
+  },
+  "plugins": {
+    "entries": {
+      "brave": {
+        "enabled": true,
+        "config": {
+          "webSearch": {
+            "apiKey": "<BRAVE_SEARCH_API_KEY>"
+          }
+        }
+      }
+    }
+  },
+  "session": {
+    "dmScope": "per-channel-peer"
+  }
+}

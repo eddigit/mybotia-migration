@@ -1,0 +1,588 @@
+{
+  "meta": {
+    "lastTouchedVersion": "2026.3.28",
+    "lastTouchedAt": "2026-04-01T17:52:22.794Z"
+  },
+  "wizard": {
+    "lastRunAt": "2026-02-24T12:11:31.322Z",
+    "lastRunVersion": "2026.2.22-2",
+    "lastRunCommand": "doctor",
+    "lastRunMode": "local"
+  },
+  "browser": {
+    "headless": true
+  },
+  "auth": {
+    "profiles": {
+      "coachdigital": {
+        "provider": "anthropic",
+        "mode": "oauth"
+      },
+      "gilleskorzec": {
+        "provider": "anthropic",
+        "mode": "oauth"
+      },
+      "anthropic:manual": {
+        "provider": "anthropic",
+        "mode": "token"
+      },
+      "anthropic:gillesk-x5": {
+        "provider": "anthropic",
+        "mode": "token"
+      },
+      "gemini-main": {
+        "provider": "gemini",
+        "mode": "token"
+      },
+      "anthropic:api-key": {
+        "provider": "anthropic",
+        "mode": "token"
+      }
+    },
+    "order": {
+      "anthropic": [
+        "anthropic:api-key",
+        "anthropic:gillesk-x5",
+        "anthropic:manual",
+        "coachdigital",
+        "gilleskorzec"
+      ],
+      "gemini": [
+        "gemini-main"
+      ]
+    },
+    "cooldowns": {
+      "billingBackoffHours": 0.25,
+      "billingMaxHours": 0.5,
+      "failureWindowHours": 0.25
+    }
+  },
+  "agents": {
+    "defaults": {
+      "model": {
+        "primary": "anthropic/claude-sonnet-4-6",
+        "fallbacks": [
+          "groq/llama-3.3-70b-versatile"
+        ]
+      },
+      "models": {
+        "groq/llama-3.3-70b-versatile": {}
+      },
+      "workspace": "/home/gilles/.openclaw/workspace",
+      "memorySearch": {
+        "provider": "anthropic"
+      },
+      "contextPruning": {
+        "mode": "cache-ttl",
+        "ttl": "1h"
+      },
+      "compaction": {
+        "mode": "safeguard"
+      },
+      "heartbeat": {
+        "every": "45m",
+        "directPolicy": "block"
+      },
+      "maxConcurrent": 6,
+      "sandbox": {
+        "mode": "non-main",
+        "scope": "agent",
+        "workspaceAccess": "none"
+      }
+    },
+    "list": [
+      {
+        "id": "main",
+        "default": true,
+        "name": "L�a",
+        "workspace": "/home/gilles/.openclaw/workspace",
+        "model": {
+          "primary": "anthropic/claude-sonnet-4-6",
+          "fallbacks": [
+            "groq/llama-3.3-70b-versatile"
+          ]
+        },
+        "sandbox": {
+          "mode": "off"
+        },
+        "tools": {
+          "profile": "full",
+          "allow": [
+            "exec",
+            "group:fs"
+          ],
+          "exec": {
+            "security": "full"
+          }
+        }
+      },
+      {
+        "id": "julian",
+        "name": "Julian",
+        "workspace": "/home/gilles/.openclaw/workspace-julian",
+        "model": {
+          "primary": "anthropic/claude-sonnet-4-6"
+        },
+        "sandbox": {
+          "mode": "off"
+        },
+        "tools": {
+          "profile": "full",
+          "allow": [
+            "exec",
+            "group:fs"
+          ],
+          "exec": {
+            "security": "full"
+          }
+        }
+      },
+      {
+        "id": "nina",
+        "name": "Nina",
+        "workspace": "/home/gilles/.openclaw/workspace-nina",
+        "model": {
+          "primary": "anthropic/claude-sonnet-4-6"
+        },
+        "identity": {
+          "avatar": "https://res.cloudinary.com/dkvhbcuaz/image/upload/v1771341557/ChatGPT_Image_17_f%C3%A9vr._2026_16_14_37_qmyjlf.png"
+        },
+        "tools": {
+          "profile": "full",
+          "allow": [
+            "exec",
+            "group:fs"
+          ],
+          "exec": {
+            "security": "full"
+          }
+        },
+        "sandbox": {
+          "mode": "off"
+        }
+      },
+      {
+        "id": "oscar",
+        "name": "Oscar",
+        "workspace": "/home/gilles/.openclaw/workspace-oscar",
+        "model": {
+          "primary": "anthropic/claude-sonnet-4-6"
+        },
+        "sandbox": {
+          "mode": "off"
+        },
+        "tools": {
+          "profile": "full",
+          "allow": [
+            "exec",
+            "group:fs"
+          ],
+          "exec": {
+            "security": "full"
+          }
+        }
+      },
+      {
+        "id": "bullsage",
+        "name": "bullsage",
+        "workspace": "/home/gilles/.openclaw/workspace-bullsage",
+        "agentDir": "/home/gilles/.openclaw/agents/bullsage/agent",
+        "model": {
+          "primary": "anthropic/claude-sonnet-4-6"
+        },
+        "identity": {
+          "name": "BullSage ????",
+          "emoji": "??",
+          "avatar": "https://res.cloudinary.com/dkvhbcuaz/image/upload/v1771671236/logo_vjmfzv.png"
+        },
+        "tools": {
+          "profile": "full",
+          "allow": [
+            "exec",
+            "group:fs"
+          ],
+          "exec": {
+            "security": "full"
+          }
+        },
+        "sandbox": {
+          "mode": "off"
+        }
+      },
+      {
+        "id": "agent-rh",
+        "name": "Conseiller MyBotIA",
+        "workspace": "/home/gilles/.openclaw/workspace-agent-rh",
+        "model": {
+          "primary": "anthropic/claude-sonnet-4-6"
+        },
+        "identity": {
+          "name": "Conseiller MyBotIA",
+          "emoji": "??"
+        },
+        "tools": {
+          "profile": "full",
+          "allow": [
+            "exec",
+            "group:fs"
+          ],
+          "exec": {
+            "security": "full"
+          }
+        },
+        "sandbox": {
+          "mode": "off"
+        }
+      }
+    ]
+  },
+  "tools": {
+    "allow": [
+      "read",
+      "write",
+      "edit",
+      "exec",
+      "web_search"
+    ],
+    "deny": [
+      "browser",
+      "canvas"
+    ],
+    "elevated": {
+      "enabled": true,
+      "allowFrom": {
+        "whatsapp": [
+          "+33652345180"
+        ]
+      }
+    }
+  },
+  "bindings": [
+    {
+      "agentId": "nina",
+      "match": {
+        "channel": "whatsapp",
+        "accountId": "nina"
+      }
+    },
+    {
+      "agentId": "main",
+      "match": {
+        "channel": "whatsapp",
+        "accountId": "default"
+      }
+    },
+    {
+      "agentId": "main",
+      "match": {
+        "channel": "telegram",
+        "accountId": "default"
+      }
+    },
+    {
+      "agentId": "julian",
+      "match": {
+        "channel": "telegram",
+        "accountId": "julian"
+      }
+    },
+    {
+      "agentId": "oscar",
+      "match": {
+        "channel": "telegram",
+        "accountId": "oscar"
+      }
+    },
+    {
+      "agentId": "nina",
+      "match": {
+        "channel": "telegram",
+        "accountId": "nina"
+      }
+    }
+  ],
+  "commands": {
+    "native": "auto",
+    "nativeSkills": "auto",
+    "restart": true,
+    "ownerDisplay": "raw"
+  },
+  "session": {
+    "reset": {
+      "mode": "daily",
+      "atHour": 4,
+      "idleMinutes": 120
+    },
+    "dmScope": "per-channel-peer"
+  },
+  "channels": {
+    "whatsapp": {
+      "enabled": true,
+      "sendReadReceipts": true,
+      "dmPolicy": "allowlist",
+      "selfChatMode": true,
+      "allowFrom": [
+        "+33652345180"
+      ],
+      "groupPolicy": "allowlist",
+      "groups": {
+        "120363406232810102@g.us": {
+          "requireMention": false
+        },
+        "120363426071294259@g.us": {
+          "requireMention": false
+        },
+        "120363424693375693@g.us": {
+          "requireMention": false
+        },
+        "120363426451963719@g.us": {
+          "requireMention": false
+        },
+        "120363407026699197@g.us": {
+          "requireMention": false
+        },
+        "120363424470242785@g.us": {
+          "requireMention": false
+        },
+        "120363425162106700@g.us": {
+          "requireMention": false
+        },
+        "120363405038000558@g.us": {
+          "requireMention": false
+        },
+        "120363406115931873@g.us": {
+          "requireMention": false
+        },
+        "120363406481118458@g.us": {
+          "requireMention": false
+        },
+        "120363407877862678@g.us": {
+          "requireMention": false
+        },
+        "120363425376786580@g.us": {
+          "requireMention": false
+        },
+        "120363424295220178@g.us": {
+          "requireMention": false
+        },
+        "120363408599518725@g.us": {
+          "requireMention": false
+        },
+        "120363407466857521@g.us": {
+          "requireMention": false
+        },
+        "120363407336999165@g.us": {
+          "requireMention": false
+        },
+        "120363424038612397@g.us": {
+          "requireMention": false
+        },
+        "120363427087280014@g.us": {
+          "requireMention": false
+        },
+        "120363406992676857@g.us": {
+          "requireMention": false
+        },
+        "120363423979135043@g.us": {
+          "requireMention": true
+        },
+        "120363426440593819@g.us": {
+          "requireMention": false
+        },
+        "120363407064486986@g.us": {
+          "requireMention": false
+        },
+        "120363408556214663@g.us": {
+          "requireMention": false
+        },
+        "120363405662362587@g.us": {
+          "requireMention": false
+        },
+        "120363406233568765@g.us": {
+          "requireMention": false
+        },
+        "120363406240724376@g.us": {
+          "requireMention": false
+        },
+        "120363408486777515@g.us": {
+          "requireMention": false
+        },
+        "120363423353502287@g.us": {
+          "requireMention": false
+        },
+        "120363425431219858@g.us": {
+          "requireMention": false
+        },
+        "120363425518387707@g.us": {
+          "requireMention": false
+        },
+        "120363425581948044@g.us": {
+          "requireMention": false
+        },
+        "120363425752034370@g.us": {
+          "requireMention": false
+        },
+        "120363425865441178@g.us": {
+          "requireMention": false
+        },
+        "120363425931772536@g.us": {
+          "requireMention": false
+        }
+      },
+      "debounceMs": 0,
+      "accounts": {
+        "nina": {
+          "enabled": true,
+          "dmPolicy": "allowlist",
+          "allowFrom": [
+            "+33689050379",
+            "+33652345180"
+          ],
+          "groupPolicy": "allowlist",
+          "debounceMs": 0,
+          "name": "Nina"
+        },
+        "default": {
+          "enabled": true,
+          "dmPolicy": "allowlist",
+          "groupPolicy": "allowlist",
+          "debounceMs": 0,
+          "name": "L�a"
+        }
+      },
+      "mediaMaxMb": 50
+    },
+    "telegram": {
+      "enabled": true,
+      "dmPolicy": "pairing",
+      "groups": {
+        "-1003561278339": {
+          "requireMention": false
+        },
+        "*": {
+          "requireMention": true
+        }
+      },
+      "groupPolicy": "open",
+      "streaming": "partial",
+      "accounts": {
+        "default": {
+          "dmPolicy": "pairing",
+          "botToken": "<TELEGRAM_BOT_TOKEN>",
+          "groups": {
+            "-1003561278339": {
+              "requireMention": false
+            }
+          },
+          "groupPolicy": "open",
+          "streaming": "partial"
+        },
+        "julian": {
+          "dmPolicy": "pairing",
+          "botToken": "<TELEGRAM_BOT_TOKEN>",
+          "groups": {
+            "-1003561278339": {
+              "requireMention": false
+            }
+          },
+          "groupPolicy": "open",
+          "streaming": "partial"
+        },
+        "oscar": {
+          "dmPolicy": "pairing",
+          "botToken": "<TELEGRAM_BOT_TOKEN>",
+          "groups": {
+            "-1003561278339": {
+              "requireMention": false
+            }
+          },
+          "groupPolicy": "open",
+          "streaming": "partial"
+        },
+        "nina": {
+          "dmPolicy": "pairing",
+          "botToken": "<TELEGRAM_BOT_TOKEN>",
+          "groups": {
+            "-1003561278339": {
+              "requireMention": false
+            }
+          },
+          "groupPolicy": "open",
+          "streaming": "partial"
+        }
+      }
+    }
+  },
+  "gateway": {
+    "port": 18789,
+    "mode": "local",
+    "bind": "loopback",
+    "controlUi": {
+      "enabled": true,
+      "allowedOrigins": [
+        "http://127.0.0.1:3001",
+        "http://180.149.198.23",
+        "https://180.149.198.23",
+        "http://app.mybotia.com",
+        "https://app.mybotia.com",
+        "https://lea.mybotia.com",
+        "https://oscar.mybotia.com",
+        "https://julian.mybotia.com",
+        "https://nina.mybotia.com",
+        "https://onboarding.mybotia.com",
+        "http://onboarding.mybotia.com",
+        "https://mybotia.com",
+        "http://mybotia.com",
+        "https://voice.mybotia.com",
+        "http://voice.mybotia.com"
+      ],
+      "allowInsecureAuth": true,
+      "dangerouslyDisableDeviceAuth": true
+    },
+    "auth": {
+      "mode": "token",
+      "token": "67085f007e934ad258db36616d4797d3d3ec916cafef7d44"
+    },
+    "trustedProxies": [
+      "127.0.0.1",
+      "::1"
+    ],
+    "channelStaleEventThresholdMinutes": 120,
+    "channelMaxRestartsPerHour": 3,
+    "channelHealthCheckMinutes": 10,
+    "remote": {
+      "url": "wss://app.mybotia.com"
+    },
+    "http": {
+      "endpoints": {
+        "chatCompletions": {
+          "enabled": true
+        }
+      }
+    }
+  },
+  "plugins": {
+    "entries": {
+      "whatsapp": {
+        "enabled": true,
+        "config": {}
+      },
+      "telegram": {
+        "enabled": true,
+        "config": {}
+      },
+      "browser": {
+        "enabled": true,
+        "config": {}
+      },
+      "brave": {
+        "enabled": true,
+        "config": {
+          "webSearch": {
+            "apiKey": "<BRAVE_SEARCH_API_KEY>"
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,34 @@
+# Credentials & secrets
+*.env
+.env*
+*creds.json
+.openclaw-tokens-vault.json
+*.key
+*.pem
+*.secret
+*secret*.json
+*token*.json
+*credentials*.json
+
+# Databases
+*.db
+*.sqlite
+*.sqlite-wal
+*.sqlite-shm
+
+# Runtime
+node_modules/
+__pycache__/
+*.pyc
+*.log
+*.session
+/tmp/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Build artifacts
+*.map
+*.min.js.map
+*.min.css.map

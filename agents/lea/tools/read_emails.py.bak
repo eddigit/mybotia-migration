@@ -1,0 +1,195 @@
+#!/usr/bin/env python3
+"""
+Script de lecture d'emails pour OpenClaw via Gmail API.
+Usage:
+  python3 read_emails.py [nombre_max] [query] [account_name]  # Pour lister les emails
+  python3 read_emails.py id:[message_id] [account_name]      # Pour lire un email spécifique par ID
+"""
+import json
+import base64
+import requests
+import sys
+import os
+
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+
+def refresh_token_if_needed(account_name):
+    """Rafraîchit le token si expiré pour un compte donné"""
+    token_file = os.path.join(SCRIPT_DIR, f'gmail-token-{account_name.replace("@gmail.com", "")}.json')
+    credentials_file = os.path.join(SCRIPT_DIR, '..' , f'credentials-{account_name}.json')
+
+    if not os.path.exists(token_file):
+        print(f"Error: Token file {token_file} not found for {account_name}.")
+        return None
+    if not os.path.exists(credentials_file):
+        print(f"Error: Credentials file {credentials_file} not found for {account_name}.")
+        return None
+
+    with open(token_file) as f:
+        token = json.load(f)
+    with open(credentials_file) as f:
+        creds_data = json.load(f)
+        creds = creds_data.get('installed') or creds_data.get('web') # Handle both formats
+
+    test = requests.get(
+        'https://gmail.googleapis.com/gmail/v1/users/me/profile',
+        headers={'Authorization': f'Bearer {token["access_token"]}'}
+    )
+
+    if test.status_code == 401:
+        response = requests.post('https://oauth2.googleapis.com/token', data={
+            'client_id': creds['client_id'],
+            'client_secret': creds['client_secret'],
+            'refresh_token': token['refresh_token'],
+            'grant_type': 'refresh_token'
+        })
+        new_token = response.json()
+        
+        # Vérifier si le refresh a réussi
+        if 'access_token' not in new_token:
+            error = new_token.get('error', 'unknown')
+            error_desc = new_token.get('error_description', 'No description')
+            print(f"❌ Token {account_name} expiré/révoqué: {error} - {error_desc}")
+            print(f"   → Exécute: python3 tools/renew_token_coachdigital.py")
+            return None
+            
+        token['access_token'] = new_token['access_token']
+        with open(token_file, 'w') as f:
+            json.dump(token, f, indent=2)
+
+    return token['access_token']
+
+def get_header(headers, name):
+    """Extrait un header d'email"""
+    for h in headers:
+        if h['name'].lower() == name.lower():
+            return h['value']
+    return None
+
+def list_emails(max_results=10, query=None, account_name="coachdigitalparis"):
+    """Liste les emails pour un compte Gmail donné"""
+    access_token = refresh_token_if_needed(account_name)
+    if not access_token:
+        return []
+
+    params = {'maxResults': max_results}
+    if query:
+        params['q'] = query
+
+    response = requests.get(
+        'https://gmail.googleapis.com/gmail/v1/users/me/messages',
+        headers={'Authorization': f'Bearer {access_token}'},
+        params=params
+    )
+
+    if response.status_code != 200:
+        print(f"❌ Erreur {response.status_code}: {response.text}")
+        return []
+
+    messages = response.json().get('messages', [])
+
+    results = []
+    for msg in messages:
+        msg_response = requests.get(
+            f'https://gmail.googleapis.com/gmail/v1/users/me/messages/{msg["id"]}',
+            headers={'Authorization': f'Bearer {access_token}'},
+            params={'format': 'full'}
+        )
+
+        if msg_response.status_code == 200:
+            msg_data = msg_response.json()
+            headers = msg_data['payload'].get('headers', [])
+
+            body = ""
+            payload = msg_data['payload']
+            if 'body' in payload and payload['body'].get('data'):
+                body = base64.urlsafe_b64decode(payload['body']['data']).decode('utf-8', errors='ignore')
+            elif 'parts' in payload:
+                for part in payload['parts']:
+                    if part['mimeType'] == 'text/plain' and part['body'].get('data'):
+                        body = base64.urlsafe_b64decode(part['body']['data']).decode('utf-8', errors='ignore')
+                        break
+
+            results.append({
+                'id': msg['id'],
+                'from': get_header(headers, 'From'),
+                'to': get_header(headers, 'To'),
+                'subject': get_header(headers, 'Subject'),
+                'date': get_header(headers, 'Date'),
+                'snippet': msg_data.get('snippet', ''),
+                'body': body[:500] + '...' if len(body) > 500 else body
+            })
+
+    return results
+
+def get_email_content_by_id(message_id, account_name="coachdigitalparis"):
+    """Récupère le contenu complet d'un email par son ID."""
+    access_token = refresh_token_if_needed(account_name)
+    if not access_token:
+        return None
+
+    msg_response = requests.get(
+        f'https://gmail.googleapis.com/gmail/v1/users/me/messages/{message_id}',
+        headers={'Authorization': f'Bearer {access_token}'},
+        params={'format': 'full'}
+    )
+
+    if msg_response.status_code != 200:
+        print(f"❌ Erreur {msg_response.status_code}: {msg_response.text}")
+        return None
+
+    msg_data = msg_response.json()
+    headers = msg_data['payload'].get('headers', [])
+
+    body = ""
+    payload = msg_data['payload']
+    if 'body' in payload and payload['body'].get('data'):
+        body = base64.urlsafe_b64decode(payload['body']['data']).decode('utf-8', errors='ignore')
+    elif 'parts' in payload:
+        for part in payload['parts']:
+            if part['mimeType'] == 'text/plain' and part['body'].get('data'):
+                body = base64.urlsafe_b64decode(part['body']['data']).decode('utf-8', errors='ignore')
+                break
+            elif part['mimeType'] == 'multipart/alternative' and 'parts' in part:
+                for sub_part in part['parts']:
+                    if sub_part['mimeType'] == 'text/plain' and sub_part['body'].get('data'):
+                        body = base64.urlsafe_b64decode(sub_part['body']['data']).decode('utf-8', errors='ignore')
+                        break
+                if body: break
+
+    return {
+        'id': message_id,
+        'from': get_header(headers, 'From'),
+        'to': get_header(headers, 'To'),
+        'subject': get_header(headers, 'Subject'),
+        'date': get_header(headers, 'Date'),
+        'snippet': msg_data.get('snippet', ''),
+        'body': body
+    }
+
+if __name__ == '__main__':
+    if len(sys.argv) > 1 and sys.argv[1].startswith("id:"):
+        message_id = sys.argv[1].split(":")[1]
+        account_name_arg_index = 2 if len(sys.argv) > 2 else None
+        account_name = sys.argv[account_name_arg_index] if account_name_arg_index else "coachdigitalparis"
+        email = get_email_content_by_id(message_id, account_name)
+        if email:
+            print(json.dumps(email, indent=2))
+        else:
+            print(f"❌ Email with ID {message_id} not found or an error occurred.")
+    else:
+        max_results = int(sys.argv[1]) if len(sys.argv) > 1 else 5
+        query = sys.argv[2] if len(sys.argv) > 2 else None
+        account_name = sys.argv[3] if len(sys.argv) > 3 else "coachdigitalparis"
+
+        emails = list_emails(max_results, query, account_name)
+
+        print(f"\n📬 {len(emails)} email(s) trouvé(s) dans {account_name}:\n")
+        for i, email in enumerate(emails, 1):
+            print(f"--- Email {i} ---")
+            print(f"De: {email['from']}")
+            print(f"À: {email['to']}")
+            print(f"Sujet: {email['subject']}")
+            print(f"Date: {email['date']}")
+            print(f"Aperçu: {email['snippet']}")
+            print()

@@ -1,0 +1,300 @@
+{
+    "lea": {
+        "token": "<WEBCHAT_SESSION_TOKEN>",
+        "session": "agent:main:main",
+        "name": "Léa",
+        "agentId": "main",
+        "avatar": "https://res.cloudinary.com/dkvhbcuaz/image/upload/v1771478041/ChatGPT_Image_6_f%C3%A9vr._2026_02_37_27_rwbavh.png",
+        "role": "Directrice Admin & Juridique",
+        "cards": [
+            {
+                "icon": "calendar",
+                "title": "Mon planning du jour",
+                "desc": "Rendez-vous, tâches et priorités",
+                "prompt": "Quel est mon planning du jour ? Résume mes rendez-vous et tâches prioritaires."
+            },
+            {
+                "icon": "briefcase",
+                "title": "Point complet",
+                "desc": "Emails, transactions, tâches en cours",
+                "prompt": "Fais-moi un point complet : emails importants, dernières transactions bancaires, tâches en cours et prochains rendez-vous."
+            },
+            {
+                "icon": "search",
+                "title": "Recherche juridique",
+                "desc": "Jurisprudence, lois et règlements",
+                "prompt": "Lance une recherche juridique sur le sujet suivant :"
+            },
+            {
+                "icon": "mail",
+                "title": "Mes emails urgents",
+                "desc": "Emails prioritaires à traiter",
+                "prompt": "Quels sont mes emails urgents ou importants à traiter en priorité ?"
+            },
+            {
+                "icon": "bank",
+                "title": "Suivi bancaire",
+                "desc": "Dernières transactions et solde",
+                "prompt": "Résume mes dernières transactions bancaires et mon solde actuel."
+            },
+            {
+                "icon": "edit",
+                "title": "Rédiger un email",
+                "desc": "Email professionnel assisté",
+                "prompt": "Aide-moi à rédiger un email professionnel pour :"
+            }
+        ]
+    },
+    "julian": {
+        "token": "<WEBCHAT_SESSION_TOKEN>",
+        "session": "agent:julian:main",
+        "name": "Julian",
+        "agentId": "julian",
+        "avatar": "",
+        "role": "Expert technique",
+        "cards": [
+            {
+                "icon": "doc",
+                "title": "Analyse technique",
+                "desc": "Code, architecture, diagnostics",
+                "prompt": "Analyse cette situation technique :"
+            },
+            {
+                "icon": "search",
+                "title": "Recherche technique",
+                "desc": "Documentation, solutions, best practices",
+                "prompt": "Recherche une solution technique pour :"
+            },
+            {
+                "icon": "folder",
+                "title": "Audit de projet",
+                "desc": "État du projet et recommandations",
+                "prompt": "Fais un audit complet du projet suivant :"
+            },
+            {
+                "icon": "edit",
+                "title": "Rédaction technique",
+                "desc": "Documentation, specs, rapports",
+                "prompt": "Aide-moi à rédiger un document technique sur :"
+            }
+        ]
+    },
+    "nina": {
+        "token": "<WEBCHAT_SESSION_TOKEN>",
+        "session": "agent:nina:main",
+        "name": "Nina",
+        "agentId": "nina",
+        "avatar": "",
+        "role": "Responsable commerciale",
+        "cards": [
+            {
+                "icon": "chart",
+                "title": "Analyse de marché",
+                "desc": "Concurrence, tendances, opportunités",
+                "prompt": "Analyse le marché de :"
+            },
+            {
+                "icon": "mail",
+                "title": "Email commercial",
+                "desc": "Prospection, relance, proposition",
+                "prompt": "Rédige un email commercial pour :"
+            },
+            {
+                "icon": "users",
+                "title": "Stratégie commerciale",
+                "desc": "Plan d'action et objectifs",
+                "prompt": "Propose une stratégie commerciale pour :"
+            },
+            {
+                "icon": "doc",
+                "title": "Proposition commerciale",
+                "desc": "Offre personnalisée et devis",
+                "prompt": "Prépare une proposition commerciale pour :"
+            }
+        ]
+    },
+    "oscar": {
+        "token": "<WEBCHAT_SESSION_TOKEN>",
+        "session": "agent:oscar:main",
+        "name": "Oscar",
+        "agentId": "oscar",
+        "avatar": "",
+        "role": "Directeur des opérations",
+        "cards": [
+            {
+                "icon": "calendar",
+                "title": "Planning opérationnel",
+                "desc": "Tâches, échéances, priorités",
+                "prompt": "Fais le point sur le planning opérationnel :"
+            },
+            {
+                "icon": "folder",
+                "title": "Suivi des projets",
+                "desc": "État d'avancement global",
+                "prompt": "Résume l'état d'avancement de tous les projets en cours."
+            },
+            {
+                "icon": "chart",
+                "title": "Indicateurs clés",
+                "desc": "KPIs et performance",
+                "prompt": "Quels sont les indicateurs clés de performance actuels ?"
+            },
+            {
+                "icon": "edit",
+                "title": "Rapport d'activité",
+                "desc": "Synthèse et recommandations",
+                "prompt": "Rédige un rapport d'activité pour la période en cours."
+            }
+        ]
+    },
+    "eva": {
+        "token": "<WEBCHAT_SESSION_TOKEN_VLMEDICAL>",
+        "session": "agent:vlmedical-commercial:main",
+        "name": "Eva",
+        "agentId": "vlmedical-commercial",
+        "avatar": "",
+        "role": "Responsable commerciale",
+        "cards": [
+            {
+                "icon": "users",
+                "title": "Présentation commerciale",
+                "desc": "Offres et services VL Medical",
+                "prompt": "Prépare une présentation commerciale de nos services pour :"
+            },
+            {
+                "icon": "chart",
+                "title": "Analyse de marché",
+                "desc": "Secteur médical et opportunités",
+                "prompt": "Analyse le marché médical pour :"
+            },
+            {
+                "icon": "mail",
+                "title": "Email commercial",
+                "desc": "Prospection et relance",
+                "prompt": "Rédige un email commercial pour :"
+            },
+            {
+                "icon": "doc",
+                "title": "Stratégie commerciale",
+                "desc": "Plan d'action et conquête",
+                "prompt": "Propose une stratégie commerciale pour :"
+            }
+        ]
+    },
+    "max": {
+        "token": "<WEBCHAT_SESSION_TOKEN_VLMEDICAL>",
+        "session": "agent:vlmedical-admin:main",
+        "name": "Max",
+        "agentId": "vlmedical-admin",
+        "avatar": "https://res.cloudinary.com/dniurvpzd/image/upload/v1772035906/Max_Vl_Medical_fdp3lu.jpg",
+        "role": "Admin, Juridique & Commercial",
+        "cards": [
+            {
+                "icon": "search",
+                "title": "Recherche juridique",
+                "desc": "Jurisprudence, lois et règlements",
+                "prompt": "Lance une recherche juridique sur le sujet suivant :"
+            },
+            {
+                "icon": "doc",
+                "title": "Analyse de document",
+                "desc": "Contrats, conclusions, décisions",
+                "prompt": "Analyse ce document juridique :"
+            },
+            {
+                "icon": "gavel",
+                "title": "Consultation juridique",
+                "desc": "Questions de droit et stratégie",
+                "prompt": "J'ai une question juridique concernant :"
+            },
+            {
+                "icon": "folder",
+                "title": "Suivi de dossier",
+                "desc": "État d'avancement et prochaines étapes",
+                "prompt": "Fais le point sur le dossier suivant :"
+            },
+            {
+                "icon": "chart",
+                "title": "Analyse commerciale",
+                "desc": "Marché, concurrence et opportunités",
+                "prompt": "Analyse le marché et la concurrence pour :"
+            },
+            {
+                "icon": "mail",
+                "title": "Rédaction commerciale",
+                "desc": "Emails, propositions, relances",
+                "prompt": "Rédige un email commercial pour :"
+            }
+        ]
+    },
+    "brice": {
+        "token": "<WEBCHAT_SESSION_TOKEN_LUCY>",
+        "session": "agent:brice:main",
+        "name": "Brice",
+        "agentId": "brice",
+        "avatar": "",
+        "role": "Collaborateur IA — Démo cabinets d'avocats",
+        "port": 18794,
+        "cards": [
+            {
+                "icon": "search",
+                "title": "Recherche juridique",
+                "desc": "Jurisprudence, lois et règlements",
+                "prompt": "Lance une recherche juridique sur le sujet suivant :"
+            },
+            {
+                "icon": "gavel",
+                "title": "Consultation juridique",
+                "desc": "Questions de droit et stratégie",
+                "prompt": "J'ai une question juridique concernant :"
+            },
+            {
+                "icon": "briefcase",
+                "title": "Découvrir MaBoiteIA",
+                "desc": "Ce qu'un collaborateur IA peut faire pour votre cabinet",
+                "prompt": "Présentez-moi ce que MaBoiteIA peut apporter à mon cabinet d'avocats."
+            },
+            {
+                "icon": "mic",
+                "title": "Message vocal",
+                "desc": "Réponse en message vocal",
+                "prompt": "Réponds-moi par message vocal."
+            }
+        ]
+    },
+    "lucy": {
+        "token": "<WEBCHAT_SESSION_TOKEN_BRICE>",
+        "session": "agent:lucy:lucy",
+        "name": "Lucy",
+        "agentId": "lucy",
+        "avatar": "https://res.cloudinary.com/dniurvpzd/image/upload/v1774210075/Capture_d_e%CC%81cran_2026-03-22_a%CC%80_21.06.45_d2bygw.png",
+        "role": "Collaboratrice IA — IGH",
+        "port": 18795,
+        "cards": [
+            {
+                "icon": "briefcase",
+                "title": "Point du jour",
+                "desc": "Résumé des échanges et actions",
+                "prompt": "Fais-moi un point complet sur les échanges du jour et les actions en cours."
+            },
+            {
+                "icon": "search",
+                "title": "Info établissement",
+                "desc": "Rechercher une info sur un EHPAD ou clinique",
+                "prompt": "Recherche les informations suivantes sur l'établissement :"
+            },
+            {
+                "icon": "users",
+                "title": "Organigramme IGH",
+                "desc": "Directeurs, établissements, contacts",
+                "prompt": "Affiche l'organigramme du groupe IGH avec les directeurs et établissements."
+            },
+            {
+                "icon": "doc",
+                "title": "Compte-rendu",
+                "desc": "Rédiger un CR structuré",
+                "prompt": "Rédige un compte-rendu structuré de la réunion suivante :"
+            }
+        ]
+    }
+}

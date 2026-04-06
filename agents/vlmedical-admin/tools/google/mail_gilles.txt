@@ -1,0 +1,19 @@
+Bonjour Gilles,
+
+Jean-Luc te confirme que Max a désormais accès à sa boîte Gmail (jeanluc@aubagnac.com).
+
+Voici les credentials API pour maintenance si ça casse :
+
+Projet Google Cloud : VL Medical - Max
+Project ID : eng-origin-490509-h0
+Client ID : 80085272852-0n5h15773db43u7787c14rhb0lqbv82q.apps.googleusercontent.com
+Client Secret : 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
+GOG_KEYRING_PASSWORD : vlmedical2026
+
+Console Google Cloud : https://console.cloud.google.com/apis/credentials?project=eng-origin-490509-h0
+
+En cas de token expiré, relancer :
+GOG_KEYRING_PASSWORD="vlmedical2026" gog auth add jeanluc@aubagnac.com --services gmail --remote --step 1
+Puis step 2 avec l'URL de callback.
+
+Max — VL Medical

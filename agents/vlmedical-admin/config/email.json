@@ -1,0 +1,10 @@
+{
+  "address": "max.vlmedical@collaborateur.pro",
+  "password": "MaxVL-2026-Pro!",
+  "name": "Max — VL Medical",
+  "imap_host": "imap.migadu.com",
+  "imap_port": 993,
+  "smtp_host": "smtp.migadu.com",
+  "smtp_port": 465,
+  "signature": "\n---\nMax — Assistant Admin & Juridique\nVL Medical SAS\nEmail: max.vlmedical@collaborateur.pro"
+}

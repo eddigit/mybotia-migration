@@ -1,0 +1,226 @@
+{
+  "120363407026699197@g.us": {
+    "client": "interne",
+    "memory": "memory/general.md",
+    "label": "Team Coach Digital GK (interne)",
+    "blocked": false,
+    "blocked_reason": ""
+  },
+  "120363423979135043@g.us": {
+    "client": "igh",
+    "memory": "memory/clients/igh.md",
+    "label": "IA GROUPE IGH - EHPAD (Imbert/Cozon)",
+    "blocked": false,
+    "blocked_reason": ""
+  },
+  "120363425162106700@g.us": {
+    "client": "hannah",
+    "memory": "memory/clients/hannah.md",
+    "label": "Hannah - Paypers",
+    "blocked": false,
+    "blocked_reason": ""
+  },
+  "120363408599518725@g.us": {
+    "client": "byron",
+    "memory": "memory/clients/byron.md",
+    "label": "Com BYRON - Pascal",
+    "blocked": false,
+    "blocked_reason": ""
+  },
+  "120363424295220178@g.us": {
+    "client": "herve",
+    "memory": "memory/clients/herve.md",
+    "label": "Assistante Hervé Boussaid",
+    "blocked": false,
+    "blocked_reason": ""
+  },
+  "120363425376786580@g.us": {
+    "client": "clarisse",
+    "memory": "memory/clients/clarisse.md",
+    "label": "Bâtonnat 2028 - Clarisse Surin",
+    "blocked": false,
+    "blocked_reason": ""
+  },
+  "120363426451963719@g.us": {
+    "client": "clarisse",
+    "memory": "memory/clients/clarisse.md",
+    "label": "Clarisse Surin",
+    "blocked": false,
+    "blocked_reason": ""
+  },
+  "120363405038000558@g.us": {
+    "client": "rachel",
+    "memory": "memory/clients/rachel.md",
+    "label": "Cannes Rachel",
+    "blocked": false,
+    "blocked_reason": ""
+  },
+  "120363426071294259@g.us": {
+    "client": "martine",
+    "memory": "memory/clients/martine.md",
+    "label": "ETF Accompagnement - Martine",
+    "blocked": false,
+    "blocked_reason": ""
+  },
+  "120363406232810102@g.us": {
+    "client": "jean-luc",
+    "memory": "memory/clients/igh.md",
+    "label": "Assistante Jean Luc Aubagnac",
+    "blocked": false,
+    "blocked_reason": ""
+  },
+  "120363424470242785@g.us": {
+    "client": "personnel",
+    "memory": "memory/general.md",
+    "label": "Ness ma femme (ANCIEN groupe)",
+    "blocked": false,
+    "blocked_reason": ""
+  },
+  "120363425518387707@g.us": {
+    "client": "personnel",
+    "memory": "memory/general.md",
+    "label": "Ma femme (ACTIF)",
+    "blocked": false,
+    "blocked_reason": ""
+  },
+  "120363425931772536@g.us": {
+    "client": "levinet",
+    "memory": "memory/clients/levinet.md",
+    "label": "Académie LEVINET",
+    "blocked": true,
+    "blocked_reason": "Quota session atteint - pas abonnement actif. Répondre UNIQUEMENT: ⚠️ Session quota reached. Please contact your account manager."
+  },
+  "120363425752034370@g.us": {
+    "client": "levinet",
+    "memory": "memory/clients/levinet.md",
+    "label": "Accompagnement LEVINET",
+    "blocked": true,
+    "blocked_reason": "Quota session atteint - pas abonnement actif. Répondre UNIQUEMENT: ⚠️ Session quota reached. Please contact your account manager."
+  },
+  "120363424693375693@g.us": {
+    "client": "clement",
+    "memory": "memory/clients/clement-delpiano.md",
+    "label": "Clement Delpiano",
+    "blocked": false,
+    "blocked_reason": ""
+  },
+  "120363406115931873@g.us": {
+    "client": "xavier",
+    "memory": "memory/clients/xavier.md",
+    "label": "Soutien IA Xavier",
+    "blocked": false,
+    "blocked_reason": ""
+  },
+  "120363406481118458@g.us": {
+    "client": "clemsen",
+    "memory": "memory/clients/clemsen.md",
+    "label": "Soutien Clemsen",
+    "blocked": false,
+    "blocked_reason": ""
+  },
+  "120363424038612397@g.us": {
+    "client": "maggia",
+    "memory": "memory/clients/maggia.md",
+    "label": "Maggia Coiffure",
+    "blocked": false,
+    "blocked_reason": ""
+  },
+  "120363406992676857@g.us": {
+    "client": "hamono",
+    "memory": "memory/clients/hamono.md",
+    "label": "PM HAMONO - Partenaire vendeur",
+    "blocked": false,
+    "blocked_reason": ""
+  },
+  "120363407466857521@g.us": {
+    "client": "latin",
+    "memory": "memory/clients/latin.md",
+    "label": "Le Latin - Aymen",
+    "blocked": false,
+    "blocked_reason": ""
+  },
+  "120363407336999165@g.us": {
+    "client": "tobiana",
+    "memory": "memory/clients/tobiana.md",
+    "label": "Assistante test TOBIANA",
+    "blocked": false,
+    "blocked_reason": ""
+  },
+  "120363407877862678@g.us": {
+    "client": "interne",
+    "memory": "memory/general.md",
+    "label": "Initiation Lucy (test interne)",
+    "blocked": false,
+    "blocked_reason": ""
+  },
+  "120363427087280014@g.us": {
+    "client": "cousin-jo",
+    "memory": "memory/clients/cousin-jo.md",
+    "label": "Mon cousin Jo",
+    "blocked": false,
+    "blocked_reason": ""
+  },
+  "120363407064486986@g.us": {
+    "client": "personnel",
+    "memory": "memory/general.md",
+    "label": "Suivi Hugo mon fils",
+    "blocked": false,
+    "blocked_reason": ""
+  },
+  "120363405662362587@g.us": {
+    "client": "art-royal",
+    "memory": "memory/clients/artroyal.md",
+    "label": "Atelier Art Royal",
+    "blocked": false,
+    "blocked_reason": ""
+  },
+  "120363423353502287@g.us": {
+    "client": "systemic",
+    "memory": "memory/clients/systemic.md",
+    "label": "Systemic",
+    "blocked": false,
+    "blocked_reason": ""
+  },
+  "120363408486777515@g.us": {
+    "client": "systemic",
+    "memory": "memory/clients/systemic.md",
+    "label": "Admin Systemic",
+    "blocked": false,
+    "blocked_reason": ""
+  },
+  "120363406240724376@g.us": {
+    "client": "levinet",
+    "memory": "memory/clients/levinet.md",
+    "label": "Conférence Trading 09/02/2026",
+    "blocked": false,
+    "blocked_reason": ""
+  },
+  "120363425581948044@g.us": {
+    "client": "emrise",
+    "memory": "memory/clients/emrise.md",
+    "label": "Emrise",
+    "blocked": false,
+    "blocked_reason": ""
+  },
+  "120363425865441178@g.us": {
+    "client": "nazaretti",
+    "memory": "memory/clients/nazaretti.md",
+    "label": "Help Nazaretti",
+    "blocked": false,
+    "blocked_reason": ""
+  },
+  "120363406233568765@g.us": {
+    "client": "interne",
+    "memory": "memory/general.md",
+    "label": "Mybotia Team (interne)",
+    "blocked": false,
+    "blocked_reason": ""
+  },
+  "120363425431219858@g.us": {
+    "client": "personnel",
+    "memory": "memory/general.md",
+    "label": "Vince mon pote",
+    "blocked": false,
+    "blocked_reason": ""
+  }
+}

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nouvelle demande de réservation — EmiRise</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500&family=Inter:wght@300;400;500;600&display=swap');
+  </style>
+</head>
+<body style="margin:0; padding:0; background-color:#FAF8F5; font-family:'Inter', -apple-system, BlinkMacSystemFont, sans-serif;">
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color:#FAF8F5;">
+    <tr>
+      <td align="center" style="padding:40px 16px;">
+        <table role="presentation" width="600" cellpadding="0" cellspacing="0" style="max-width:600px; width:100%;">
+
+          <!-- HEADER -->
+          <tr>
+            <td align="center" style="padding:32px 0 24px;">
+              <span style="font-family:'Playfair Display', Georgia, serif; font-size:30px; font-weight:400; color:#2D2A26; letter-spacing:0.05em;">EmiRise</span>
+            </td>
+          </tr>
+
+          <!-- BADGE NOTIFICATION -->
+          <tr>
+            <td align="center" style="padding:0 0 24px;">
+              <table role="presentation" cellpadding="0" cellspacing="0">
+                <tr>
+                  <td style="background-color:#C9A961; border-radius:9999px; padding:8px 20px;">
+                    <span style="font-family:'Inter', sans-serif; font-size:12px; font-weight:500; color:#FFFFFF; letter-spacing:0.1em; text-transform:uppercase;">
+                      Nouvelle demande
+                    </span>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+          <!-- CARD PRINCIPALE -->
+          <tr>
+            <td>
+              <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color:#FFFFFF; border-radius:12px; box-shadow:0 4px 20px rgba(0,0,0,0.08);">
+                <tr>
+                  <td style="padding:40px 32px;">
+
+                    <!-- LOGEMENT -->
+                    <h1 style="font-family:'Playfair Display', Georgia, serif; font-size:24px; font-weight:400; color:#2D2A26; margin:0 0 4px; text-align:center;">
+                      {{nom_logement}}
+                    </h1>
+                    <p style="font-family:'Inter', sans-serif; font-size:15px; color:#C9A961; margin:0 0 32px; text-align:center; font-weight:500;">
+                      {{date_arrivee}} → {{date_depart}} · {{nb_voyageurs}} voyageur(s)
+                    </p>
+
+                    <!-- CONTACT VOYAGEUR -->
+                    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color:#FAF8F5; border-radius:8px; border:1px solid #E8E0D5;">
+                      <tr>
+                        <td style="padding:24px;">
+                          <p style="font-family:'Inter', sans-serif; font-size:10px; font-weight:500; letter-spacing:0.15em; text-transform:uppercase; color:#9A9189; margin:0 0 16px;">
+                            Contact voyageur
+                          </p>
+
+                          <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
+                            <tr>
+                              <td style="padding:6px 0; font-family:'Inter', sans-serif; font-size:13px; color:#9A9189; width:90px;">Nom</td>
+                              <td style="padding:6px 0; font-family:'Inter', sans-serif; font-size:15px; color:#2D2A26; font-weight:500;">{{prenom}} {{nom}}</td>
+                            </tr>
+                            <tr>
+                              <td colspan="2" style="border-bottom:1px solid #E8E0D5;"></td>
+                            </tr>
+                            <tr>
+                              <td style="padding:6px 0; font-family:'Inter', sans-serif; font-size:13px; color:#9A9189;">Email</td>
+                              <td style="padding:6px 0; font-family:'Inter', sans-serif; font-size:15px; color:#2D2A26;">
+                                <a href="mailto:{{email}}" style="color:#C9A961; text-decoration:none;">{{email}}</a>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td colspan="2" style="border-bottom:1px solid #E8E0D5;"></td>
+                            </tr>
+                            <tr>
+                              <td style="padding:6px 0; font-family:'Inter', sans-serif; font-size:13px; color:#9A9189;">Téléphone</td>
+                              <td style="padding:6px 0; font-family:'Inter', sans-serif; font-size:15px; color:#2D2A26;">
+                                <a href="tel:{{telephone}}" style="color:#C9A961; text-decoration:none;">{{telephone}}</a>
+                              </td>
+                            </tr>
+                          </table>
+                        </td>
+                      </tr>
+                    </table>
+
+                    <!-- MESSAGE DU VOYAGEUR -->
+                    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin-top:16px; background-color:#FAF8F5; border-radius:8px; border:1px solid #E8E0D5;">
+                      <tr>
+                        <td style="padding:24px;">
+                          <p style="font-family:'Inter', sans-serif; font-size:10px; font-weight:500; letter-spacing:0.15em; text-transform:uppercase; color:#9A9189; margin:0 0 12px;">
+                            Message
+                          </p>
+                          <p style="font-family:'Inter', sans-serif; font-size:15px; color:#2D2A26; margin:0; line-height:1.6; font-style:italic;">
+                            "{{message}}"
+                          </p>
+                        </td>
+                      </tr>
+                    </table>
+
+                    <!-- RÉFÉRENCE -->
+                    <p style="font-family:'Inter', sans-serif; font-size:13px; color:#9A9189; margin:24px 0 0; text-align:center;">
+                      Réf. {{reference}}
+                    </p>
+
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+          <!-- FOOTER -->
+          <tr>
+            <td align="center" style="padding:32px 0 0;">
+              <p style="font-family:'Inter', sans-serif; font-size:13px; color:#9A9189; margin:0;">
+                Notification automatique — EmiRise
+              </p>
+            </td>
+          </tr>
+
+        </table>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>

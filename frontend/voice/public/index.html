@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MyBotIA Voice</title>
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="theme-color" content="#0a0a1a" />
+  <link rel="manifest" href="/manifest.json" />
+  <link rel="icon" type="image/png" href="https://res.cloudinary.com/dniurvpzd/image/upload/v1774683623/Icon_app_MyBotIA_Vocal_vz3abs.png" />
+  <link rel="apple-touch-icon" href="https://res.cloudinary.com/dniurvpzd/image/upload/v1774683623/Icon_app_MyBotIA_Vocal_vz3abs.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Marck+Script&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/thin/style.css" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style-v2.css" />
+</head>
+<body>
+  <div class="bg-orbs">
+    <div class="bg-orb bg-orb-1"></div>
+    <div class="bg-orb bg-orb-2"></div>
+  </div>
+
+  <div class="container">
+    <!-- Header : logo MaBoiteIA -->
+    <header class="header">
+      <div class="logo">
+        <img src="https://res.cloudinary.com/dniurvpzd/image/upload/v1774683623/Icon_app_MyBotIA_Vocal_vz3abs.png"
+             alt="MyBotIA Voice" class="logo-img" />
+      </div>
+      <div class="header-title">Collaborateur ia</div>
+      <div class="header-right">
+        <button class="settings-btn" id="settingsBtn" aria-label="Paramètres audio">
+          <i class="ph-thin ph-gear"></i>
+        </button>
+      </div>
+    </header>
+
+    <!-- Agent profile : avatar + nom + badge -->
+    <section class="agent-profile">
+      <div class="agent-profile-avatar">
+        <img src="https://res.cloudinary.com/dkvhbcuaz/image/upload/v1771478041/ChatGPT_Image_6_f%C3%A9vr._2026_02_37_27_rwbavh.png"
+             alt="Léa" />
+      </div>
+      <div class="agent-profile-info">
+        <h2 class="agent-profile-name">Léa</h2>
+        <div class="agent-badge">
+          <span class="agent-dot"></span>
+          <span class="conn-dot" id="connDot"></span>
+          Collaboratrice IA
+        </div>
+      </div>
+    </section>
+
+    <!-- Settings overlay (plein écran, style app mobile) -->
+    <div class="settings-overlay" id="settingsOverlay">
+      <div class="settings-sheet">
+        <div class="settings-sheet-header">
+          <button class="settings-back" id="settingsClose" aria-label="Fermer">
+            <i class="ph-thin ph-arrow-left"></i>
+          </button>
+          <h3>Paramètres</h3>
+          <span class="settings-version">v2.4.0</span>
+        </div>
+
+        <div class="settings-sheet-body">
+          <!-- Section Voix -->
+          <div class="settings-section">
+            <div class="settings-section-title">
+              <i class="ph-thin ph-waveform"></i> Voix
+            </div>
+            <div class="settings-item">
+              <label for="voiceSpeed">Vitesse de la voix</label>
+              <div class="speed-control">
+                <span class="speed-label">Lent</span>
+                <input type="range" id="voiceSpeed" min="-30" max="30" value="-5" step="5" />
+                <span class="speed-label">Rapide</span>
+              </div>
+              <div class="speed-value-display"><span id="speedValue">0.95x</span></div>
+            </div>
+          </div>
+
+          <!-- Section Audio -->
+          <div class="settings-section">
+            <div class="settings-section-title">
+              <i class="ph-thin ph-microphone"></i> Audio
+            </div>
+            <div class="settings-item">
+              <label for="micSelect">Microphone</label>
+              <select id="micSelect"><option>Chargement...</option></select>
+            </div>
+            <div class="settings-item">
+              <label for="spkSelect">Sortie audio</label>
+              <select id="spkSelect"><option>Chargement...</option></select>
+            </div>
+            <div class="settings-item">
+              <button class="test-btn" id="micTestBtn">
+                <i class="ph-thin ph-microphone"></i> Tester le micro
+              </button>
+              <div class="mic-level hidden" id="micLevel">
+                <div class="mic-level-bar" id="micLevelBar"></div>
+              </div>
+            </div>
+            <div class="settings-item">
+              <span class="perm-status pending" id="permStatus">Vérification...</span>
+            </div>
+          </div>
+
+          <!-- Section Réunion -->
+          <div class="settings-section">
+            <div class="settings-section-title">
+              <i class="ph-thin ph-file-text"></i> Réunion
+            </div>
+            <div class="settings-item">
+              <label for="meetingEmail">Email pour les comptes-rendus</label>
+              <input type="email" id="meetingEmail" placeholder="exemple@email.com" autocomplete="email" />
+              <span class="settings-hint">Le rapport sera envoyé à cette adresse à la fin de chaque réunion</span>
+            </div>
+          </div>
+
+          <!-- Section Affichage -->
+          <div class="settings-section">
+            <div class="settings-section-title">
+              <i class="ph-thin ph-devices"></i> Affichage
+            </div>
+            <div class="settings-item">
+              <label>Mode d'affichage</label>
+              <div class="device-toggle">
+                <button class="device-btn active" data-device="mobile" id="deviceMobile">
+                  <i class="ph-thin ph-device-mobile"></i> Mobile
+                </button>
+                <button class="device-btn" data-device="tablet" id="deviceTablet">
+                  <i class="ph-thin ph-device-tablet"></i> Tablette
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main card -->
+    <main class="card">
+      <!-- Mode selector -->
+      <div class="mode-selector" id="modeSelector">
+        <button class="mode-btn active" data-mode="on-call" id="modeOnCall">
+          <i class="ph-thin ph-phone"></i>
+          Sur appel
+        </button>
+        <button class="mode-btn" data-mode="free" id="modeFree">
+          <i class="ph-thin ph-chat-circle"></i>
+          Libre
+        </button>
+        <button class="mode-btn" data-mode="meeting" id="modeMeeting">
+          <i class="ph-thin ph-file-text"></i>
+          Réunion
+        </button>
+      </div>
+
+      <!-- Mic orb -->
+      <div class="avatar-ring" id="avatarRing">
+        <div class="avatar-inner">
+          <svg class="mic-icon" id="micIcon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z"/>
+            <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
+            <line x1="12" y1="19" x2="12" y2="22"/>
+            <line x1="8" y1="22" x2="16" y2="22"/>
+          </svg>
+          <svg class="stop-icon hidden" id="stopIcon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+            <rect x="6" y="6" width="12" height="12" rx="2"/>
+          </svg>
+          <div class="spinner hidden" id="spinner"></div>
+        </div>
+      </div>
+
+      <!-- Wake word indicator (mode Sur appel) -->
+      <div class="wake-word-hint hidden" id="wakeWordHint">
+        Dites <strong>« Léa »</strong> pour lui parler
+      </div>
+
+      <!-- Meeting info (mode Réunion) -->
+      <div class="meeting-bar hidden" id="meetingBar">
+        <div class="meeting-info">
+          <span class="meeting-rec-dot" id="meetingRecDot"></span>
+          <span class="meeting-timer" id="meetingTimer">00:00</span>
+          <span class="meeting-count" id="meetingCount">0 segment(s)</span>
+        </div>
+        <button class="meeting-end-btn" id="meetingEndBtn">
+          <i class="ph-thin ph-stop-circle"></i> Arrêter
+        </button>
+      </div>
+
+      <!-- Meeting action modal -->
+      <div class="meeting-modal hidden" id="meetingModal">
+        <div class="meeting-modal-sheet">
+          <h3>Que souhaitez-vous faire ?</h3>
+          <button class="meeting-modal-btn pause" id="meetingPauseBtn">
+            <i class="ph-thin ph-pause-circle"></i>
+            <div>
+              <strong>Mettre en pause</strong>
+              <span>La réunion continue, reprenez quand vous voulez</span>
+            </div>
+          </button>
+          <button class="meeting-modal-btn finish" id="meetingFinishBtn">
+            <i class="ph-thin ph-check-circle"></i>
+            <div>
+              <strong>Terminer la réunion</strong>
+              <span>Générer le compte-rendu et l'envoyer par email</span>
+            </div>
+          </button>
+          <button class="meeting-modal-cancel" id="meetingCancelBtn">Annuler</button>
+        </div>
+      </div>
+
+      <!-- Status -->
+      <div class="status-area">
+        <p class="status-label" id="statusLabel">Cliquez pour démarrer la conversation</p>
+        <div class="status-dots hidden" id="statusDots">
+          <span></span><span></span><span></span>
+        </div>
+      </div>
+
+      <!-- Mic button -->
+      <button class="mic-btn" id="micBtn" aria-label="Démarrer la conversation">
+        <span class="mic-btn-text" id="micBtnText">Démarrer</span>
+      </button>
+
+      <!-- Transcript area (scrollable) -->
+      <div class="transcript-area" id="transcriptArea"></div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <p class="footer-brand">Conçu et développé par <strong>G.KORZEC</strong></p>
+      <p class="footer-meta">v2.4.0 · Déployé le <span id="deployDate"></span></p>
+      <p class="footer-link"><a href="https://mybotia.com" target="_blank">mybotia.com</a></p>
+    </footer>
+  </div>
+
+  <!-- VAD Silero WASM -->
+  <script src="https://cdn.jsdelivr.net/npm/onnxruntime-web@1.19.0/dist/ort.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@ricky0123/vad-web@0.0.19/dist/bundle.min.js"></script>
+  <script src="app.js"></script>
+  <script>
+    document.getElementById('deployDate').textContent = '28 mars 2026 · ' + new Date().toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/sw.js').catch(() => {});
+    }
+  </script>
+</body>
+</html>

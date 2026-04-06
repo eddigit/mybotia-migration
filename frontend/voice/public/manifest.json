@@ -1,0 +1,15 @@
+{
+  "name": "MyBotIA Voice",
+  "short_name": "MyBotIA Voice",
+  "description": "Interface vocale temps réel avec votre collaborateur IA",
+  "start_url": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0a0a1a",
+  "theme_color": "#8b5cf6",
+  "icons": [
+    { "src": "https://res.cloudinary.com/dniurvpzd/image/upload/v1774683623/Icon_app_MyBotIA_Vocal_vz3abs.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "https://res.cloudinary.com/dniurvpzd/image/upload/v1774683623/Icon_app_MyBotIA_Vocal_vz3abs.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "https://res.cloudinary.com/dniurvpzd/image/upload/v1774683623/Icon_app_MyBotIA_Vocal_vz3abs.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}

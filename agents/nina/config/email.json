@@ -1,0 +1,10 @@
+{
+  "address": "nina@collaborateur.pro",
+  "password": "Nina-Collab2026!",
+  "name": "Nina — Coach Digital",
+  "imap_host": "imap.migadu.com",
+  "imap_port": 993,
+  "smtp_host": "smtp.migadu.com",
+  "smtp_port": 465,
+  "signature": "\n---\nNina — Responsable Commerciale\nCoach Digital Paris\nEmail: nina@collaborateur.pro"
+}

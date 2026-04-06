@@ -1,0 +1,46 @@
+{
+  "lea": {
+    "token": "<WEBCHAT_SESSION_TOKEN>",
+    "session": "lea",
+    "name": "Léa",
+    "agentId": "main"
+  },
+  "julian": {
+    "token": "<WEBCHAT_SESSION_TOKEN>",
+    "session": "julian",
+    "name": "Julian",
+    "agentId": "julian"
+  },
+  "nina": {
+    "token": "<WEBCHAT_SESSION_TOKEN>",
+    "session": "nina",
+    "name": "Nina",
+    "agentId": "nina"
+  },
+  "oscar": {
+    "token": "<WEBCHAT_SESSION_TOKEN>",
+    "session": "oscar",
+    "name": "Oscar",
+    "agentId": "oscar"
+  },
+  "onboarding": {
+    "token": "<WEBCHAT_SESSION_TOKEN>",
+    "session": "onboarding",
+    "name": "Conseiller MyBotIA",
+    "agentId": "agent-rh"
+  },
+  "brice": {
+    "token": "65d1daf6a5a5877ff5d1b4ef5b276ae917e716fd5f76b2e7",
+    "session": "brice",
+    "name": "Brice",
+    "agentId": "brice",
+    "port": 18794
+  },
+  "lucy": {
+    "token": "e581649cd03d0d2c17666f2cb82703d02c3109ab08a899de",
+    "session": "lucy",
+    "name": "Lucy",
+    "agentId": "lucy",
+    "port": 18795
+  }
+}

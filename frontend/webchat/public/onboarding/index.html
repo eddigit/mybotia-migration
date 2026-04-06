@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Créer mon assistant IA — MyBotIA</title>
+<link rel="icon" type="image/png" href="https://res.cloudinary.com/dkvhbcuaz/image/upload/v1771575508/favicon-v3-white-MyBotIA_hyobg6.png">
+<meta name="theme-color" content="#0b101c">
+<meta name="description" content="Créez votre assistant IA sur mesure en 10 minutes. Un conseiller vous guide pas à pas.">
+<style>
+:root {
+  --primary: #2563EB;
+  --primary-dark: #1d4ed8;
+  --bg: #0b101c;
+  --surface: #131b2e;
+  --surface-light: #1a2540;
+  --text: #e2e8f0;
+  --text-muted: #94a3b8;
+  --border: #2d3748;
+  --agent-bubble: #1e293b;
+  --user-bubble: #2563EB;
+  --accent: #22c55e;
+  --radius: 16px;
+  --radius-sm: 10px;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+.header {
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
+  padding: 12px 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+}
+.header-logo { width: 36px; height: 36px; border-radius: 50%; }
+.header-info h1 { font-size: 16px; font-weight: 600; }
+.header-info span { font-size: 12px; color: var(--accent); }
+.main { flex: 1; display: flex; overflow: hidden; }
+.chat-zone { flex: 1; display: flex; flex-direction: column; min-width: 0; }
+.messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  scroll-behavior: smooth;
+}
+.message {
+  max-width: 80%;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  animation: slideUp 0.3s ease;
+}
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.message.agent { align-self: flex-start; }
+.message.user { align-self: flex-end; }
+.bubble {
+  padding: 12px 16px;
+  border-radius: var(--radius);
+  line-height: 1.5;
+  font-size: 15px;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+.agent .bubble { background: var(--agent-bubble); border-bottom-left-radius: 4px; }
+.user .bubble { background: var(--user-bubble); color: white; border-bottom-right-radius: 4px; }
+.message-time { font-size: 11px; color: var(--text-muted); padding: 0 4px; }
+.agent .message-time { text-align: left; }
+.user .message-time { text-align: right; }
+.typing {
+  display: none;
+  align-self: flex-start;
+  padding: 12px 16px;
+  background: var(--agent-bubble);
+  border-radius: var(--radius);
+  border-bottom-left-radius: 4px;
+  margin: 0 20px;
+}
+.typing.visible { display: flex; gap: 4px; align-items: center; }
+.typing-dot {
+  width: 8px; height: 8px;
+  background: var(--text-muted);
+  border-radius: 50%;
+  animation: typingBounce 1.4s infinite;
+}
+.typing-dot:nth-child(2) { animation-delay: 0.2s; }
+.typing-dot:nth-child(3) { animation-delay: 0.4s; }
+@keyframes typingBounce {
+  0%, 60%, 100% { transform: translateY(0); }
+  30% { transform: translateY(-6px); }
+}
+.quick-replies { display: flex; flex-wrap: wrap; gap: 8px; padding: 0 20px 12px; }
+.quick-reply {
+  background: transparent;
+  border: 1px solid var(--primary);
+  color: var(--primary);
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.quick-reply:hover { background: var(--primary); color: white; }
+.input-zone {
+  padding: 12px 20px 20px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  gap: 10px;
+  align-items: flex-end;
+  background: var(--bg);
+}
+.mic-btn {
+  width: 44px; height: 44px;
+  border-radius: 50%; border: none;
+  background: var(--surface-light);
+  color: var(--text-muted);
+  font-size: 20px; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; transition: all 0.2s;
+}
+.mic-btn.recording {
+  background: #ef4444; color: white;
+  animation: pulse 1.5s infinite;
+}
+@keyframes pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(239,68,68,0.4); }
+  50% { box-shadow: 0 0 0 10px rgba(239,68,68,0); }
+}
+.mic-btn.hidden { display: none; }
+.input-wrap {
+  flex: 1; display: flex; align-items: flex-end;
+  background: var(--surface);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  padding: 4px; transition: border-color 0.2s;
+}
+.input-wrap:focus-within { border-color: var(--primary); }
+.input-wrap textarea {
+  flex: 1; background: transparent; border: none;
+  color: var(--text); font-size: 15px;
+  padding: 10px 12px; resize: none;
+  max-height: 120px; min-height: 44px;
+  line-height: 1.4; font-family: inherit; outline: none;
+}
+.input-wrap textarea::placeholder { color: var(--text-muted); }
+.send-btn {
+  width: 40px; height: 40px;
+  border-radius: 8px; border: none;
+  background: var(--primary); color: white;
+  font-size: 18px; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; transition: background 0.2s;
+}
+.send-btn:hover { background: var(--primary-dark); }
+.send-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+.sidebar {
+  width: 320px; background: var(--surface);
+  border-left: 1px solid var(--border);
+  overflow-y: auto; padding: 20px; flex-shrink: 0;
+}
+.sidebar h2 {
+  font-size: 14px; color: var(--text-muted);
+  text-transform: uppercase; letter-spacing: 1px; margin-bottom: 16px;
+}
+.phase-item {
+  padding: 12px; border-radius: var(--radius-sm);
+  margin-bottom: 8px; border: 1px solid var(--border); transition: all 0.3s;
+}
+.phase-item.pending { opacity: 0.4; }
+.phase-item.active { border-color: var(--primary); background: rgba(37,99,235,0.1); opacity: 1; }
+.phase-item.done { border-color: var(--accent); opacity: 1; }
+.phase-header { display: flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 500; }
+.phase-icon { width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; font-size: 14px; }
+.phase-detail {
+  font-size: 12px; color: var(--text-muted);
+  margin-top: 6px; padding-left: 32px; display: none;
+}
+.phase-item.done .phase-detail, .phase-item.active .phase-detail { display: block; }
+.sidebar-toggle {
+  display: none; position: fixed; bottom: 90px; right: 16px;
+  width: 48px; height: 48px; border-radius: 50%;
+  background: var(--primary); color: white; border: none;
+  font-size: 20px; cursor: pointer; z-index: 100;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+.connection-status {
+  position: fixed; top: 60px; left: 50%; transform: translateX(-50%);
+  padding: 8px 16px; border-radius: 20px; font-size: 13px; z-index: 200; display: none;
+}
+.connection-status.connecting { display: block; background: #f59e0b; color: black; }
+.connection-status.error { display: block; background: #ef4444; color: white; }
+@media (max-width: 768px) {
+  .sidebar {
+    position: fixed; top: 0; right: -320px; height: 100%;
+    z-index: 150; transition: right 0.3s ease;
+    box-shadow: -4px 0 20px rgba(0,0,0,0.3);
+  }
+  .sidebar.open { right: 0; }
+  .sidebar-toggle { display: flex; align-items: center; justify-content: center; }
+  .sidebar-overlay {
+    display: none; position: fixed; inset: 0;
+    background: rgba(0,0,0,0.5); z-index: 140;
+  }
+  .sidebar-overlay.visible { display: block; }
+  .message { max-width: 90%; }
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <img class="header-logo" src="https://res.cloudinary.com/dkvhbcuaz/image/upload/v1771575508/favicon-v3-white-MyBotIA_hyobg6.png" alt="MyBotIA">
+  <div class="header-info">
+    <h1>Créer mon assistant IA</h1>
+    <span id="statusDot">? En ligne</span>
+  </div>
+</div>
+
+<div class="connection-status" id="connectionStatus"></div>
+
+<div class="main">
+  <div class="chat-zone">
+    <div class="messages" id="messages"></div>
+    <div class="typing" id="typing">
+      <div class="typing-dot"></div>
+      <div class="typing-dot"></div>
+      <div class="typing-dot"></div>
+    </div>
+    <div class="quick-replies" id="quickReplies"></div>
+    <div class="input-zone">
+      <button class="mic-btn" id="micBtn" title="Parler">???</button>
+      <div class="input-wrap">
+        <textarea id="userInput" placeholder="Décrivez votre besoin..." rows="1"></textarea>
+      </div>
+      <button class="send-btn" id="sendBtn" title="Envoyer">?</button>
+    </div>
+  </div>
+
+  <div class="sidebar" id="sidebar">
+    <h2>Votre assistant</h2>
+    <div id="phases">
+      <div class="phase-item active" data-phase="profil">
+        <div class="phase-header"><span class="phase-icon">??</span> Votre profil</div>
+        <div class="phase-detail" id="detail-profil">En attente...</div>
+      </div>
+      <div class="phase-item pending" data-phase="identite">
+        <div class="phase-header"><span class="phase-icon">?</span> Identité de l'agent</div>
+        <div class="phase-detail" id="detail-identite"></div>
+      </div>
+      <div class="phase-item pending" data-phase="missions">
+        <div class="phase-header"><span class="phase-icon">?</span> Missions</div>
+        <div class="phase-detail" id="detail-missions"></div>
+      </div>
+      <div class="phase-item pending" data-phase="caractere">
+        <div class="phase-header"><span class="phase-icon">?</span> Caractère et ton</div>
+        <div class="phase-detail" id="detail-caractere"></div>
+      </div>
+      <div class="phase-item pending" data-phase="regles">
+        <div class="phase-header"><span class="phase-icon">?</span> Règles absolues</div>
+        <div class="phase-detail" id="detail-regles"></div>
+      </div>
+      <div class="phase-item pending" data-phase="routine">
+        <div class="phase-header"><span class="phase-icon">?</span> Routine quotidienne</div>
+        <div class="phase-detail" id="detail-routine"></div>
+      </div>
+      <div class="phase-item pending" data-phase="ecosysteme">
+        <div class="phase-header"><span class="phase-icon">?</span> Écosystème & formule</div>
+        <div class="phase-detail" id="detail-ecosysteme"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<button class="sidebar-toggle" id="sidebarToggle">??</button>
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+<script>
+(function() {
+  'use strict';
+
+  var GATEWAY_TOKEN = '67085f007e934ad258db36616d4797d3d3ec916cafef7d44';
+  var WS_URL = (location.protocol === 'https:' ? 'wss://' : 'ws://') + location.host + '/ws';
+
+  var SESSION_KEY = sessionStorage.getItem('onboarding-session');
+  if (!SESSION_KEY) {
+    SESSION_KEY = 'onboarding-' + Date.now() + '-' + Math.random().toString(36).substring(2, 8);
+    sessionStorage.setItem('onboarding-session', SESSION_KEY);
+  }
+
+  var $messages = document.getElementById('messages');
+  var $input = document.getElementById('userInput');
+  var $sendBtn = document.getElementById('sendBtn');
+  var $micBtn = document.getElementById('micBtn');
+  var $typing = document.getElementById('typing');
+  var $quickReplies = document.getElementById('quickReplies');
+  var $sidebar = document.getElementById('sidebar');
+  var $sidebarToggle = document.getElementById('sidebarToggle');
+  var $sidebarOverlay = document.getElementById('sidebarOverlay');
+  var $connectionStatus = document.getElementById('connectionStatus');
+  var $statusDot = document.getElementById('statusDot');
+
+  var ws = null;
+  var connected = false;
+  var waitingResponse = false;
+  var currentPhase = 'profil';
+  var collectedData = {};
+  var reconnectAttempts = 0;
+  var streamText = '';
+  var streamingDiv = null;
+  var connectSent = false;
+  var pendingRequests = new Map();
+
+  // --- UUID generator ---
+  function uuid() {
+    if (crypto && crypto.randomUUID) return crypto.randomUUID();
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+      var r = Math.random() * 16 | 0;
+      return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);
+    });
+  }
+
+  // --- OpenClaw request/response pattern ---
+  function request(method, params) {
+    return new Promise(function(resolve, reject) {
+      if (!ws || ws.readyState !== WebSocket.OPEN) {
+        reject(new Error('Non connecté'));
+        return;
+      }
+      var id = uuid();
+      var frame = { type: 'req', id: id, method: method, params: params };
+      pendingRequests.set(id, { resolve: resolve, reject: reject });
+      ws.send(JSON.stringify(frame));
+      setTimeout(function() {
+        if (pendingRequests.has(id)) {
+          pendingRequests.delete(id);
+          reject(new Error('Timeout'));
+        }
+      }, 30000);
+    });
+  }
+
+  function flushPending(err) {
+    pendingRequests.forEach(function(p) { p.reject(err); });
+    pendingRequests.clear();
+  }
+
+  // --- Extract text from OpenClaw message format ---
+  function extractText(msg) {
+    if (!msg) return '';
+    var content = msg.content || msg;
+    if (typeof content === 'string') return content;
+    if (Array.isArray(content)) {
+      return content
+        .filter(function(c) { return c.type === 'text' && c.text; })
+        .map(function(c) { return c.text; })
+        .join('\n');
+    }
+    if (typeof msg.text === 'string') return msg.text;
+    return '';
+  }
+
+  // --- Send connect after challenge ---
+  function sendConnect() {
+    if (connectSent) return;
+    connectSent = true;
+    request('connect', {
+      minProtocol: 3,
+      maxProtocol: 3,
+      client: { id: 'mybotia-onboarding', version: '1.0.0', platform: 'web', mode: 'ui' },
+      role: 'operator',
+      scopes: ['operator.read', 'operator.write'],
+      caps: [],
+      auth: { token: GATEWAY_TOKEN },
+      locale: 'fr-FR',
+      userAgent: 'MyBotIA-Onboarding/1.0.0'
+    }).then(function() {
+      connected = true;
+      reconnectAttempts = 0;
+      hideConnectionStatus();
+      $statusDot.textContent = '? En ligne';
+      $statusDot.style.color = '#22c55e';
+    }).catch(function(err) {
+      showConnectionStatus('error', 'Erreur : ' + err.message);
+      $statusDot.textContent = '? Erreur';
+      $statusDot.style.color = '#ef4444';
+    });
+  }
+
+  // --- Handle incoming messages ---
+  function handleMessage(data) {
+    // Event
+    if (data.type === 'event') {
+      if (data.event === 'connect.challenge') {
+        sendConnect();
+        return;
+      }
+      if (data.event === 'chat') {
+        handleChatEvent(data.payload);
+        return;
+      }
+      return;
+    }
+    // Response
+    if (data.type === 'res') {
+      var pending = pendingRequests.get(data.id);
+      if (!pending) return;
+      pendingRequests.delete(data.id);
+      if (data.ok) {
+        pending.resolve(data.payload);
+      } else {
+        pending.reject(new Error(data.error || 'Erreur serveur'));
+      }
+      return;
+    }
+  }
+
+  // --- Handle chat streaming events ---
+  function handleChatEvent(payload) {
+    if (!payload) return;
+    var eventKey = payload.sessionKey || '';
+    if (eventKey && eventKey !== SESSION_KEY) return;
+
+    if (payload.state === 'delta') {
+      var text = extractText(payload.message);
+      if (text && text.length > 0) {
+        streamText = text;
+        hideTyping();
+        updateStreamingMessage(streamText);
+        waitingResponse = true;
+      }
+    } else if (payload.state === 'final') {
+      hideTyping();
+      waitingResponse = false;
+      var finalText = extractText(payload.message);
+      if (finalText) {
+        finalizeStreamingMessage(finalText);
+        handleOnboardingData(finalText);
+      } else if (streamingDiv) {
+        finalizeStreamingMessage(streamText);
+        handleOnboardingData(streamText);
+      }
+      streamText = '';
+    }
+  }
+
+  addMessage('agent', "Bonjour ! Je suis votre conseiller pour la création de votre assistant IA.\n\nEn quelques minutes, nous allons construire ensemble un collaborateur virtuel parfaitement adapté à votre pratique. C'est simple : je vous pose des questions, vous me répondez — par texte ou par micro ??? — et votre assistant prend forme.\n\nPour commencer, pouvez-vous me dire quel est votre métier et votre spécialité ?");
+
+  function connectWS() {
+    showConnectionStatus('connecting', 'Connexion en cours...');
+    $statusDot.textContent = '? Connexion...';
+    $statusDot.style.color = '#f59e0b';
+    connectSent = false;
+
+    ws = new WebSocket(WS_URL);
+    ws.addEventListener('open', function() { /* wait for connect.challenge */ });
+    ws.addEventListener('message', function(evt) {
+      var data;
+      try { data = JSON.parse(evt.data); } catch(e) { return; }
+      handleMessage(data);
+    });
+    ws.addEventListener('close', function(evt) {
+      connected = false;
+      connectSent = false;
+      ws = null;
+      flushPending(new Error('Déconnecté'));
+      $statusDot.textContent = '? Déconnecté';
+      $statusDot.style.color = '#ef4444';
+      if (evt.code !== 1000 && reconnectAttempts < 5) {
+        reconnectAttempts++;
+        var delay = Math.min(800 * Math.pow(2, reconnectAttempts), 15000);
+        showConnectionStatus('connecting', 'Reconnexion...');
+        setTimeout(connectWS, delay);
+      } else if (reconnectAttempts >= 5) {
+        showConnectionStatus('error', 'Connexion perdue. Rechargez la page.');
+      }
+    });
+    ws.addEventListener('error', function() {});
+  }
+
+  function addMessage(role, text) {
+    var cleanText = text.replace(/===ONBOARDING_DATA_START===[\s\S]*?===ONBOARDING_DATA_END===/g, '').trim();
+    if (!cleanText) return;
+    var div = document.createElement('div');
+    div.className = 'message ' + role;
+    div.innerHTML = '<div class="bubble">' + escapeHtml(cleanText) + '</div>' +
+      '<span class="message-time">' + new Date().toLocaleTimeString('fr-FR', {hour:'2-digit', minute:'2-digit'}) + '</span>';
+    $messages.appendChild(div);
+    scrollToBottom();
+    return div;
+  }
+
+  function updateStreamingMessage(text) {
+    var cleanText = text.replace(/===ONBOARDING_DATA_START===[\s\S]*$/g, '').trim();
+    if (!streamingDiv) {
+      streamingDiv = document.createElement('div');
+      streamingDiv.className = 'message agent';
+      streamingDiv.innerHTML = '<div class="bubble"></div>';
+      $messages.appendChild(streamingDiv);
+    }
+    streamingDiv.querySelector('.bubble').textContent = cleanText;
+    scrollToBottom();
+  }
+
+  function finalizeStreamingMessage(text) {
+    if (streamingDiv) {
+      var cleanText = text.replace(/===ONBOARDING_DATA_START===[\s\S]*?===ONBOARDING_DATA_END===/g, '').trim();
+      streamingDiv.querySelector('.bubble').textContent = cleanText;
+      var ts = document.createElement('span');
+      ts.className = 'message-time';
+      ts.textContent = new Date().toLocaleTimeString('fr-FR', {hour:'2-digit', minute:'2-digit'});
+      streamingDiv.appendChild(ts);
+      streamingDiv = null;
+    }
+    scrollToBottom();
+  }
+
+  function sendMessage(text) {
+    if (!text.trim() || waitingResponse) return;
+    if (!connected) { showConnectionStatus('error', 'Non connecté'); return; }
+    addMessage('user', text);
+    $input.value = '';
+    autoResize();
+    clearQuickReplies();
+    waitingResponse = true;
+    showTyping();
+    streamText = '';
+    request('chat.send', {
+      sessionKey: SESSION_KEY,
+      message: text,
+      deliver: false,
+      idempotencyKey: uuid()
+    }).catch(function(err) {
+      hideTyping();
+      waitingResponse = false;
+      addMessage('agent', '? Erreur : ' + err.message);
+    });
+  }
+
+  function handleOnboardingData(text) {
+    var match = text.match(/===ONBOARDING_DATA_START===([\s\S]*?)===ONBOARDING_DATA_END===/);
+    if (match) {
+      try {
+        var data = JSON.parse(match[1].trim());
+        collectedData = data;
+        updateAllPhases(data);
+        dispatchOnboarding(data);
+      } catch (e) { console.error('[ONBOARDING] Parse error:', e); }
+    }
+    detectPhaseFromText(text);
+  }
+
+  function detectPhaseFromText(text) {
+    var l = text.toLowerCase();
+    var p = null;
+    if (l.includes('prénom') && (l.includes('agent') || l.includes('assistant')) || l.includes('donnons') && l.includes('vie')) p = 'identite';
+    else if (l.includes('mission') && (l.includes('concrètement') || l.includes('confier') || l.includes('tâche'))) p = 'missions';
+    else if (l.includes('caractère') || l.includes('ton de communication') || l.includes('comment il') || l.includes('comment elle')) p = 'caractere';
+    else if (l.includes('règle') || l.includes('interdit') || l.includes('garde-fou') || l.includes('non négociable')) p = 'regles';
+    else if (l.includes('routine') || l.includes('quotidien') || l.includes('récurrent')) p = 'routine';
+    else if (l.includes('formule') || l.includes('écosystème') || l.includes('multi-agent') || l.includes('starter') || l.includes('cabinet (')) p = 'ecosysteme';
+    else if (l.includes('récap') || l.includes('résumé de') || l.includes('voici ce que')) p = 'recap';
+    if (p && p !== currentPhase) {
+      setPhaseComplete(currentPhase);
+      currentPhase = p;
+      setPhaseActive(currentPhase);
+    }
+  }
+
+  function setPhaseActive(phase) {
+    document.querySelectorAll('.phase-item').forEach(function(el) {
+      if (el.dataset.phase === phase) {
+        el.className = 'phase-item active';
+        el.querySelector('.phase-icon').textContent = '??';
+      }
+    });
+  }
+
+  function setPhaseComplete(phase) {
+    var el = document.querySelector('[data-phase="' + phase + '"]');
+    if (el) { el.className = 'phase-item done'; el.querySelector('.phase-icon').textContent = '?'; }
+  }
+
+  function updateAllPhases(d) {
+    if (d.profil && d.profil.metier) {
+      setPhaseComplete('profil');
+      document.getElementById('detail-profil').textContent = (d.profil.metier||'') + ' — ' + (d.profil.specialite||'');
+    }
+    if (d.identite_agent && d.identite_agent.prenom) {
+      setPhaseComplete('identite');
+      document.getElementById('detail-identite').textContent = d.identite_agent.prenom + ' — ' + (d.identite_agent.role||'');
+    }
+    if (d.missions && d.missions.principales && d.missions.principales.length) {
+      setPhaseComplete('missions');
+      document.getElementById('detail-missions').textContent = d.missions.principales.length + ' missions principales';
+    }
+    if (d.caractere && d.caractere.ton) {
+      setPhaseComplete('caractere');
+      document.getElementById('detail-caractere').textContent = 'Ton ' + d.caractere.ton;
+    }
+    if (d.regles && d.regles.interdits && d.regles.interdits.length) {
+      setPhaseComplete('regles');
+      document.getElementById('detail-regles').textContent = d.regles.interdits.length + ' interdits définis';
+    }
+    if (d.routine && d.routine.taches && d.routine.taches.length) {
+      setPhaseComplete('routine');
+      document.getElementById('detail-routine').textContent = d.routine.taches.length + ' tâches récurrentes';
+    }
+    if (d.ecosysteme && d.ecosysteme.formule) {
+      setPhaseComplete('ecosysteme');
+      document.getElementById('detail-ecosysteme').textContent = 'Formule ' + d.ecosysteme.formule;
+    }
+  }
+
+  function dispatchOnboarding(data) {
+    fetch('/api/onboarding-complete.php', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ session_id: SESSION_KEY, data: data })
+    }).then(function(r) { return r.json(); })
+      .then(function(res) { console.log('[DISPATCH]', res); })
+      .catch(function(err) { console.error('[DISPATCH]', err); });
+  }
+
+  function clearQuickReplies() { $quickReplies.innerHTML = ''; }
+  function showTyping() { $typing.classList.add('visible'); scrollToBottom(); }
+  function hideTyping() { $typing.classList.remove('visible'); }
+  function scrollToBottom() { $messages.scrollTop = $messages.scrollHeight; }
+  function escapeHtml(t) { var d = document.createElement('div'); d.textContent = t; return d.innerHTML; }
+  function autoResize() { $input.style.height = 'auto'; $input.style.height = Math.min($input.scrollHeight, 120) + 'px'; }
+  function showConnectionStatus(type, msg) { $connectionStatus.className = 'connection-status ' + type; $connectionStatus.textContent = msg; }
+  function hideConnectionStatus() { $connectionStatus.className = 'connection-status'; }
+
+  // Voice
+  var SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  var recognition = null, isRecording = false;
+  if (SR) {
+    recognition = new SR();
+    recognition.lang = 'fr-FR';
+    recognition.continuous = false;
+    recognition.interimResults = true;
+    recognition.onresult = function(e) {
+      var t = '';
+      for (var i = e.resultIndex; i < e.results.length; i++) t += e.results[i][0].transcript;
+      $input.value = t;
+      autoResize();
+    };
+    recognition.onend = function() { isRecording = false; $micBtn.classList.remove('recording'); };
+    recognition.onerror = function() { isRecording = false; $micBtn.classList.remove('recording'); };
+  } else { $micBtn.classList.add('hidden'); }
+
+  $micBtn.addEventListener('click', function() {
+    if (!recognition) return;
+    if (isRecording) { recognition.stop(); } else { isRecording = true; $micBtn.classList.add('recording'); recognition.start(); }
+  });
+
+  $sendBtn.addEventListener('click', function() { sendMessage($input.value); });
+  $input.addEventListener('keydown', function(e) { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage($input.value); } });
+  $input.addEventListener('input', autoResize);
+  $sidebarToggle.addEventListener('click', function() { $sidebar.classList.toggle('open'); $sidebarOverlay.classList.toggle('visible'); });
+  $sidebarOverlay.addEventListener('click', function() { $sidebar.classList.remove('open'); $sidebarOverlay.classList.remove('visible'); });
+
+  connectWS();
+})();
+</script>
+</body>
+</html>

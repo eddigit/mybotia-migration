@@ -1,0 +1,79 @@
+{
+  "version": 1,
+  "profiles": {
+    "anthropic:gilleskorzec-x20": {
+      "type": "token",
+      "provider": "anthropic",
+      "token": "<ANTHROPIC_OAUTH_TOKEN>"
+    },
+    "anthropic:coachdigital-x20": {
+      "type": "token",
+      "provider": "anthropic",
+      "token": "<ANTHROPIC_OAUTH_TOKEN>"
+    },
+    "groq:default": {
+      "provider": "groq",
+      "type": "api_key",
+      "key": "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"
+    },
+    "google:manual": {
+      "type": "api_key",
+      "provider": "google",
+      "key": "AIzaSyBEIkEz_D4ywgaBDyYXLjzrcYFeq2_XnGk"
+    },
+    "anthropic:api-key": {
+      "type": "api_key",
+      "provider": "anthropic",
+      "key": "<ANTHROPIC_API_KEY>"
+    },
+    "gemini:main": {
+      "type": "api_key",
+      "provider": "gemini",
+      "key": "AIzaSyDU2qKiN6Ip1o_rR9StQpIotiUDVPLJ8hE"
+    }
+  },
+  "order": {
+    "anthropic": [
+      "anthropic:api-key",
+      "anthropic:gilleskorzec-x20",
+      "anthropic:coachdigital-x20"
+    ],
+    "groq": [
+      "groq:default"
+    ],
+    "google": [
+      "google:manual"
+    ],
+    "gemini": [
+      "gemini:main"
+    ]
+  },
+  "lastGood": {
+    "anthropic": "anthropic:gilleskorzec-x20",
+    "groq": "groq:default"
+  },
+  "usageStats": {
+    "anthropic:gilleskorzec-x20": {
+      "errorCount": 0,
+      "lastUsed": 1775460521165,
+      "lastFailureAt": 1775374752405
+    },
+    "anthropic:coachdigital-x20": {
+      "errorCount": 1,
+      "lastUsed": 1775327503832,
+      "failureCounts": {
+        "format": 1
+      },
+      "lastFailureAt": 1775401213572,
+      "cooldownUntil": 1775401243572,
+      "cooldownReason": "format"
+    },
+    "groq:default": {
+      "errorCount": 0,
+      "lastUsed": 1775401239452
+    },
+    "anthropic:api-key": {
+      "errorCount": 0
+    }
+  }
+}

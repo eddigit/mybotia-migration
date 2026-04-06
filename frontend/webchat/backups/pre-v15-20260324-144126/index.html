@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<!-- Cache managed by versioned assets -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Collaborateur IA</title>
+<link rel="icon" type="image/svg+xml" href="https://res.cloudinary.com/dniurvpzd/image/upload/v1772032713/Logo_Collaborateur_IA_coujhr.svg">
+<link rel="apple-touch-icon" href="/icon-192x192.png">
+<link rel="apple-touch-icon" sizes="152x152" href="/icon-152x152.png">
+<link rel="apple-touch-icon" sizes="192x192" href="/icon-192x192.png">
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#0b101c">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Collaborateur ia">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="application-name" content="Collaborateur ia">
+<meta name="msapplication-TileColor" content="#0b101c">
+<meta name="msapplication-TileImage" content="/icon-144x144.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Marck+Script&display=swap">
+<link href="https://fonts.googleapis.com/css2?family=Marck+Script&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Marck+Script&display=swap" rel="stylesheet"></noscript>
+<link rel="stylesheet" href="css/style.min.css?v=v14-1">
+
+    <style>
+      .attach-doc-icon { font-size: 2em; text-align: center; line-height: 60px; width: 60px; height: 60px; background: var(--bg-secondary, #f0f0f0); border-radius: 8px; }
+      .attach-thumb .attach-doc-icon { display: flex; align-items: center; justify-content: center; }
+      /* Skeleton loading screen */
+      .skeleton-screen { position:fixed; inset:0; z-index:9999; background:#0b101c; display:flex; flex-direction:column; align-items:center; justify-content:center; transition:opacity .3s; }
+      .skeleton-screen.hidden { opacity:0; pointer-events:none; }
+      .skeleton-logo { width:64px; height:64px; margin-bottom:24px; animation:skeleton-pulse 1.5s ease-in-out infinite; }
+      .skeleton-bar { height:12px; border-radius:6px; background:rgba(167,139,250,.15); animation:skeleton-pulse 1.5s ease-in-out infinite; }
+      .skeleton-bar.w1 { width:200px; margin-bottom:12px; }
+      .skeleton-bar.w2 { width:140px; }
+      @keyframes skeleton-pulse { 0%,100%{opacity:.4} 50%{opacity:1} }
+    </style>
+
+    <style>
+      .password-wrapper { position: relative; }
+      .password-wrapper input { padding-right: 44px !important; }
+      .password-toggle {
+        position: absolute; right: 10px; top: 50%; transform: translateY(-50%);
+        background: none; border: none; cursor: pointer; padding: 4px;
+        color: var(--text-secondary, #999); display: flex; align-items: center;
+        border-radius: 4px; transition: color 0.2s;
+      }
+      .password-toggle:hover { color: var(--accent, #a78bfa); }
+      .password-toggle:focus { outline: none; }
+    </style>
+</head>
+<body>
+
+<!-- SKELETON LOADING -->
+<div class="skeleton-screen" id="skeleton-screen">
+  <img class="skeleton-logo" src="https://res.cloudinary.com/dniurvpzd/image/upload/v1772032713/Logo_Collaborateur_IA_coujhr.svg" alt="">
+  <div class="skeleton-bar w1"></div>
+  <div class="skeleton-bar w2"></div>
+</div>
+
+<!-- LOGIN SCREEN -->
+<div class="login-screen hidden" id="login-screen">
+  <div class="login-card">
+    <img class="login-logo" src="https://res.cloudinary.com/dniurvpzd/image/upload/v1772032713/Logo_Collaborateur_IA_coujhr.svg" alt="Collaborateur ia">
+    <div class="login-title">Collaborateur ia</div>
+    <div class="login-subtitle">Accédez à votre collaborateur ia</div>
+    
+    <div class="login-error" id="login-error"></div>
+    
+    <div class="login-field">
+      <label for="login-email">Identifiant</label>
+      <input type="text" id="login-email" placeholder="Votre identifiant" autocomplete="username">
+      <div class="login-hint">Votre identifiant de connexion</div>
+    </div>
+
+    <div class="login-field">
+      <label for="login-password">Mot de passe</label>
+      <div class="password-wrapper">
+        <input type="password" id="login-password" placeholder="Votre mot de passe" autocomplete="current-password">
+        <button type="button" class="password-toggle" id="password-toggle" tabindex="-1" aria-label="Afficher le mot de passe">
+          <svg class="eye-icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+            <circle cx="12" cy="12" r="3"/>
+          </svg>
+          <svg class="eye-off-icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none">
+            <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/>
+            <line x1="1" y1="1" x2="23" y2="23"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+    
+    <label class="login-remember">
+      <input type="checkbox" id="login-remember" checked>
+      Se souvenir de moi sur cet appareil
+    </label>
+    
+    <button class="login-btn" id="login-btn">Se connecter</button>
+    
+    <div class="login-footer">
+      Propulsé et créé par <a href="https://coachdigitalparis.com" target="_blank" style="color:#a78bfa;text-decoration:none;">G. KORZEC</a>
+    </div>
+  </div>
+</div>
+
+<!-- SIDEBAR -->
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-header">
+    <img class="sidebar-brand-logo" src="https://res.cloudinary.com/dniurvpzd/image/upload/v1772032713/Logo_Collaborateur_IA_coujhr.svg" alt="Collaborateur ia">
+    <button class="btn-new-chat" id="btn-new-chat" title="Nouvelle conversation" aria-label="Nouvelle conversation">+</button>
+  </div>
+  <div class="sidebar-search-wrapper">
+    <svg class="sidebar-search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+    <input type="text" id="sidebar-search" class="sidebar-search-input" placeholder="Rechercher...">
+    <button class="sidebar-search-clear" id="sidebar-search-clear" title="Effacer" style="display:none">&times;</button>
+  </div>
+  <div class="sidebar-search-results" id="sidebar-search-results" style="display:none"></div>
+  <div class="sidebar-sessions" id="sidebar-sessions">
+    <div class="sidebar-empty" id="sidebar-empty">Chargement...</div>
+  </div>
+  <!-- ACCOUNT BLOCK -->
+  <div class="sidebar-account" id="sidebar-account" style="position:relative;">
+    <div class="account-menu" id="account-menu">
+      <div class="account-menu-item" id="menu-profile">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        Mon profil
+      </div>
+      <div class="account-menu-item" id="menu-usage">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+        Usage mensuel
+      </div>
+      <div class="account-menu-sep"></div>
+      <div class="account-menu-item" id="menu-settings">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+        Paramètres
+      </div>
+      <div class="account-menu-sep"></div>
+      <div class="account-menu-item" id="menu-logout" style="color:#ef4444;">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+        Déconnexion
+      </div>
+    </div>
+
+    <button class="btn-logout" id="btn-logout-visible" title="Se déconnecter">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+      Déconnexion
+    </button>
+
+    <div class="account-profile" id="account-profile">
+      <div class="account-avatar" id="account-avatar"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" opacity="0.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+      <div class="account-info">
+        <div class="account-name" id="account-name">Connexion...</div>
+        <div class="account-plan"><span class="plan-badge pro" id="account-badge">--</span></div>
+      </div>
+      <div class="account-dots">···</div>
+    </div>
+
+    <div class="credits-section">
+      <div class="credits-header">
+        <span class="credits-label">Tokens estimés</span>
+        <span class="credits-value" id="credits-value">-- / --</span>
+      </div>
+      <div class="credits-bar">
+        <div class="credits-fill" id="credits-fill" style="width:0%"></div>
+      </div>
+    </div>
+
+    <div class="collab-selector" id="collab-selector" style="display:none;">
+      <label class="collab-label">Collaborateur ia</label>
+      <select id="collab-select" class="collab-select"></select>
+    </div>
+  </div>
+</div>
+<div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+<!-- APP MAIN -->
+<div class="app-main">
+<input type="file" id="file-input" accept="image/png,image/jpeg,image/gif,image/webp,application/pdf,.pdf,.doc,.docx,.xls,.xlsx,.txt,.csv,.zip" multiple style="display:none">
+<div class="header">
+  <button class="btn-burger" id="btn-burger" title="Menu">&#9776;</button>
+  <button class="btn-sidebar-toggle" id="btn-sidebar-toggle" title="Masquer/afficher la sidebar">
+    <svg id="icon-sidebar-show" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="9" y1="3" x2="9" y2="21"/><polyline points="14 8 18 12 14 16"/></svg>
+    <svg id="icon-sidebar-hide" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="9" y1="3" x2="9" y2="21"/><polyline points="16 8 12 12 16 16"/></svg>
+  </button>
+  <div class="header-avatar" id="header-avatar"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" opacity="0.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+  <div class="header-info">
+    <div class="header-name" id="header-name">Collaborateur ia</div>
+    <div class="header-role" id="header-role">Votre collaborateur ia</div>
+  </div>
+  <div class="header-brand">
+    <span class="header-brand-text">Collaborateur ia</span>
+  </div>
+  <div class="ws-status" id="ws-status">
+    <div class="status-dot connecting" id="status-dot" title="Connexion..."></div>
+    <span class="status-label" id="status-label"></span>
+    <div class="status-panel hidden" id="status-panel">
+      <div class="status-panel-header">
+        <span class="status-panel-title">Santé système</span>
+        <button class="status-panel-refresh" id="status-panel-refresh" title="Rafraîchir">&#8635;</button>
+      </div>
+      <div class="status-panel-body" id="status-panel-body">
+        <div class="status-panel-loading">Chargement...</div>
+      </div>
+      <div class="status-panel-footer" id="status-panel-footer"></div>
+    </div>
+  </div>
+  <button class="btn-theme" id="btn-theme" title="Changer le thème">
+    <svg id="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+    <svg id="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+  </button>
+</div>
+
+<div class="error-banner" id="error-banner"></div>
+<div class="reconnect-banner hidden" id="reconnect-banner">
+  <svg class="reconnect-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="min-width:16px;min-height:16px;max-width:16px;max-height:16px;"><path d="M1 4v6h6"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>
+  <span class="reconnect-text" id="reconnect-text">Reconnexion...</span>
+  <button class="reconnect-btn" id="reconnect-now-btn" title="Reconnecter maintenant">Reconnecter</button>
+</div>
+
+<div class="sources-bar" id="sources-bar">
+  <div class="sources-scroll">
+    <div class="source-chip" title="Légifrance"><span class="source-dot active"></span><svg class="source-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v16H4z"/><path d="M9 8h6M9 12h6M9 16h4"/></svg><span class="source-name">Légifrance</span></div>
+    <div class="source-chip" title="Judilibre — Cour de cassation"><span class="source-dot active"></span><svg class="source-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg><span class="source-name">Judilibre</span></div>
+    <div class="source-chip" title="EUR-Lex — Droit UE"><span class="source-dot active"></span><svg class="source-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/></svg><span class="source-name">EUR-Lex</span></div>
+    <div class="source-chip" title="CEDH — Droits de l'Homme"><span class="source-dot active"></span><svg class="source-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg><span class="source-name">CEDH</span></div>
+    <div class="source-chip" title="Gmail"><span class="source-dot active"></span><svg class="source-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg><span class="source-name">Gmail</span></div>
+    <div class="source-chip" title="Qonto — Banque"><span class="source-dot active"></span><svg class="source-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg><span class="source-name">Banque</span></div>
+    <div class="source-chip" title="WhatsApp"><span class="source-dot active"></span><svg class="source-icon" viewBox="0 0 24 24" width="14" height="14" fill="#25D366"><path d="M17.5 14.4c-.3-.1-1.8-.9-2-.1s-.5.1-.7.2c-.2.3-.8 1-.9 1.2-.2.2-.3.2-.6.1-.3-.2-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1s0-.5.1-.6l.4-.5c.2-.2.2-.3.3-.5s0-.4 0-.5c-.1-.1-.7-1.6-.9-2.2s-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4s-1 1-1 2.5 1.1 2.9 1.2 3.1c.1.2 2.1 3.2 5.1 4.5l1.7.6c.7.2 1.4.2 1.9.1.6-.1 1.8-.7 2-1.4s.2-1.3.2-1.4c-.1-.1-.3-.2-.6-.3z"/></svg><span class="source-name">WhatsApp</span></div>
+    <div class="source-chip" title="Telegram"><span class="source-dot active"></span><svg class="source-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 3L1 10l7 3M21 3l-13 10M21 3l-5 18-8-8"/></svg><span class="source-name">Telegram</span></div>
+    <div class="source-chip" title="Notion"><span class="source-dot active"></span><svg class="source-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v16H4z"/><path d="M8 8v8l4-4 4 4V8"/></svg><span class="source-name">Notion</span></div>
+    <div class="source-chip" title="Recherche Web"><span class="source-dot active"></span><svg class="source-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><span class="source-name">Web</span></div>
+    <div class="source-chip" title="CRM — Gestion clients"><span class="source-dot active"></span><svg class="source-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg><span class="source-name">CRM</span></div>
+  </div>
+</div>
+
+<div class="messages" id="messages">
+    <div class="welcome" id="welcome">
+    <div class="dashboard-header">
+      <div class="dashboard-avatar" id="dashboard-avatar">
+        <img src="https://res.cloudinary.com/dniurvpzd/image/upload/v1772032713/Logo_Collaborateur_IA_coujhr.svg" alt="Collaborateur ia">
+      </div>
+      <h2 id="welcome-title">Bonjour, comment puis-je vous aider ?</h2>
+      <p id="welcome-text">Choisissez une action rapide ou posez directement votre question.</p>
+    </div>
+    <div class="dashboard-cards" id="suggestions">
+      <div class="dashboard-card" data-prompt="Quel est mon planning du jour ? Résume mes rendez-vous et tâches prioritaires.">
+        <div class="dashboard-card-icon"><svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
+        <div class="dashboard-card-text"><div class="dashboard-card-title">Mon planning du jour</div><div class="dashboard-card-desc">Rendez-vous, tâches et priorités</div></div>
+      </div>
+      <div class="dashboard-card" data-prompt="Fais-moi un point complet : emails importants, dernières transactions bancaires, tâches en cours et prochains rendez-vous.">
+        <div class="dashboard-card-icon"><svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></div>
+        <div class="dashboard-card-text"><div class="dashboard-card-title">Point complet</div><div class="dashboard-card-desc">Emails, banque, tâches et agenda</div></div>
+      </div>
+      <div class="dashboard-card" data-prompt="Lis mes derniers emails et résume-moi ceux qui nécessitent une action de ma part.">
+        <div class="dashboard-card-icon"><svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
+        <div class="dashboard-card-text"><div class="dashboard-card-title">Mes emails urgents</div><div class="dashboard-card-desc">Résumé et actions nécessaires</div></div>
+      </div>
+      <div class="dashboard-card" data-prompt="Rédige un email professionnel adapté à mon contexte. Je vais te donner les détails.">
+        <div class="dashboard-card-icon"><svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></div>
+        <div class="dashboard-card-text"><div class="dashboard-card-title">Rédiger un email</div><div class="dashboard-card-desc">Email professionnel sur mesure</div></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="typing-premium" id="typing">
+  <div class="typing-avatar typing-logo-pulse" id="typing-avatar"><img src="https://res.cloudinary.com/dniurvpzd/image/upload/v1772032713/Logo_Collaborateur_IA_coujhr.svg" alt="" class="typing-logo-img"></div>
+  <div class="typing-label"><span id="typing-name">Votre collaborateur</span> réfléchit<span class="typing-dots-inline"><span></span><span></span><span></span></span></div>
+</div>
+
+<div class="streaming-bubble" id="streaming" aria-live="polite" aria-atomic="false">
+  <div class="streaming-row">
+    <div class="msg-avatar streaming-avatar" id="streaming-avatar"></div>
+    <div class="streaming-content">
+      <div class="msg-bubble streaming-cursor" id="streaming-text" role="status"></div>
+      <div class="streaming-activity" id="streaming-activity">
+        <div class="streaming-activity-bar"></div>
+        <span class="streaming-activity-label" id="streaming-activity-label">En cours...</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="recording-indicator" id="recording-indicator">
+  <div class="recording-dot"></div>
+  <span>Écoute en cours...</span>
+</div>
+<div class="attach-preview" id="attach-preview"></div>
+<div class="input-area">
+  <button class="attach-btn" id="btn-attach" title="Joindre un fichier">
+    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"/></svg>
+  </button>
+  <button class="btn-mic" id="btn-mic" title="Dictée vocale">
+    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
+  </button>
+  <div class="input-wrapper">
+    <textarea id="chat-input" rows="1" placeholder="Tapez votre message..." aria-label="Message" autocomplete="off"></textarea>
+  </div>
+  <button class="btn btn-send" id="btn-send" title="Envoyer">
+    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+  </button>
+  <button class="btn btn-stop" id="btn-stop" title="Arrêter">
+    <svg class="icon" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="6" width="12" height="12" rx="2"/></svg>
+  </button>
+</div>
+
+
+
+<div class="footer">
+  <span class="footer-item">CONÇU ET DÉVELOPPÉ PAR G.KORZEC</span>
+  <div class="footer-sep"></div>
+  <span class="footer-item">2026</span>
+  <div class="footer-sep"></div>
+  <span class="footer-item">V.14.0</span>
+</div>
+</div><!-- /app-main -->
+
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function() {
+    navigator.serviceWorker.register('/sw.js', { scope: '/' })
+      .then(function(reg) { console.log('SW registered', reg.scope); })
+      .catch(function(err) { console.log('SW failed', err); });
+  });
+}
+</script>
+<script src="js/tools-panel.min.js?v=v12-16"></script>
+
+<!-- PROFILE PANEL -->
+<div class="profile-overlay" id="profile-overlay"></div>
+<div class="profile-panel" id="profile-panel">
+  <div class="profile-panel-header">
+    <h3>Mon profil</h3>
+    <button class="profile-panel-close" id="profile-panel-close">&times;</button>
+  </div>
+  <div class="profile-panel-body">
+    <div class="profile-photo-section">
+      <div class="profile-photo-wrapper" id="profile-photo-wrapper">
+        <img id="profile-photo-img" src="" alt="Photo" style="display:none">
+        <div class="profile-photo-placeholder" id="profile-photo-placeholder">?</div>
+      </div>
+      <button class="btn-upload-photo" id="btn-upload-photo">Changer la photo</button>
+      <input type="file" id="profile-photo-input" accept="image/jpeg,image/png,image/webp" style="display:none">
+    </div>
+    <div class="profile-field">
+      <label>Nom du contact</label>
+      <input type="text" id="profile-contact-name" placeholder="Votre nom" maxlength="100">
+    </div>
+    <div class="profile-field">
+      <label>Entreprise</label>
+      <input type="text" id="profile-company-name" disabled>
+    </div>
+    <div class="profile-field">
+      <label>Email</label>
+      <input type="email" id="profile-email" disabled>
+    </div>
+    <div class="profile-field">
+      <label>Plan</label>
+      <input type="text" id="profile-plan" disabled>
+    </div>
+    <div class="profile-section-title">
+      <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+      Instructions pour tous les collaborateurs IA
+    </div>
+    <div class="profile-field">
+      <textarea id="profile-instructions-global" rows="4" maxlength="5000" placeholder="Ex: Vouvoyez-moi. Mon entreprise est spécialisée en..."></textarea>
+      <div class="profile-field-hint">Ces instructions seront transmises à tous vos collaborateurs IA.</div>
+    </div>
+    <div class="profile-section-title">
+      <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+      Instructions par collaborateur
+    </div>
+    <div id="profile-collab-instructions"></div>
+  </div>
+  <div class="profile-panel-footer">
+    <div class="profile-sync-status" id="profile-sync-status"></div>
+    <button class="btn-save-profile" id="btn-save-profile">
+      <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+      Sauvegarder et synchroniser
+    </button>
+  </div>
+</div>
+
+<!-- SETTINGS PANEL (Parametres collaborateur IA) -->
+<div class="settings-overlay" id="settings-overlay"></div>
+<div class="settings-panel" id="settings-panel">
+  <div class="settings-panel-header">
+    <h3>
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+      Parametres
+    </h3>
+    <button class="settings-panel-close" id="settings-panel-close">&times;</button>
+  </div>
+  <div class="settings-panel-body">
+
+    <!-- Avatar section -->
+    <div class="settings-section">
+      <div class="settings-section-title">Avatar du collaborateur</div>
+      <div class="settings-avatar-block">
+        <div class="settings-avatar-preview" id="settings-avatar-preview">
+          <div class="settings-avatar-placeholder" id="settings-avatar-placeholder">?</div>
+          <img id="settings-avatar-img" src="" alt="Avatar" style="display:none">
+        </div>
+        <div class="settings-avatar-form">
+          <div class="settings-field">
+            <label for="settings-avatar-url">URL de l'image</label>
+            <input type="url" class="settings-input" id="settings-avatar-url" placeholder="https://exemple.com/avatar.jpg">
+            <div class="settings-hint">Collez l'URL d'une image (JPG, PNG, WebP). Format carre recommande.</div>
+          </div>
+          <div class="settings-avatar-actions">
+            <button class="settings-btn settings-btn-primary" id="settings-btn-apply-avatar">
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+              Appliquer
+            </button>
+            <button class="settings-btn settings-btn-secondary" id="settings-btn-reset-avatar">Reinitialiser</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Agent info section -->
+    <div class="settings-section">
+      <div class="settings-section-title">Informations du collaborateur</div>
+      <div class="settings-field">
+        <label>Nom</label>
+        <input type="text" class="settings-input" id="settings-agent-name" readonly>
+      </div>
+      <div class="settings-field">
+        <label>Role</label>
+        <input type="text" class="settings-input" id="settings-agent-role" readonly>
+      </div>
+      <div class="settings-field">
+        <label>Sous-domaine</label>
+        <input type="text" class="settings-input" id="settings-agent-subdomain" readonly>
+      </div>
+    </div>
+
+    <!-- Sante systeme (moved here from status panel) -->
+    <div class="settings-section">
+      <div class="settings-section-title">Sante systeme</div>
+      <div class="settings-health" id="settings-health">
+        <div class="settings-health-loading">Chargement...</div>
+      </div>
+    </div>
+
+  </div>
+  <div class="settings-panel-footer">
+    <div class="settings-status" id="settings-status"></div>
+  </div>
+</div>
+
+
+<!-- USAGE PANEL (Sprint 13) -->
+<div class="usage-overlay" id="usage-overlay"></div>
+<div class="usage-panel" id="usage-panel">
+  <div class="usage-panel-header">
+    <h3>Usage mensuel</h3>
+    <button class="usage-panel-close" id="usage-panel-close">&times;</button>
+  </div>
+  <div class="usage-panel-body">
+    <div class="usage-quota-section">
+      <div class="usage-quota-title">Quota de tokens</div>
+      <div class="usage-tokens-pct" id="usage-pct">-- %</div>
+      <div class="usage-quota-bar-wrapper">
+        <div class="usage-quota-bar-fill green" id="usage-bar-fill" style="width:0%"></div>
+      </div>
+      <div class="usage-tokens-detail">
+        <span id="usage-tokens-used">--</span>
+        <span id="usage-tokens-max">--</span>
+      </div>
+      <div class="usage-estimate" id="usage-estimate"></div>
+      <div class="usage-period" id="usage-period"></div>
+    </div>
+    <div class="usage-history-section">
+      <div class="usage-history-title">Activit\u00e9 des 7 derniers jours</div>
+      <div class="usage-history-bars" id="usage-history-bars"></div>
+    </div>
+  </div>
+  <div class="usage-panel-footer" id="usage-panel-version">V.14.0</div>
+</div>
+
+  <script>
+    (function() {
+      var btn = document.getElementById('password-toggle');
+      if (!btn) return;
+      btn.addEventListener('click', function() {
+        var input = document.getElementById('login-password');
+        var eyeOn = btn.querySelector('.eye-icon');
+        var eyeOff = btn.querySelector('.eye-off-icon');
+        if (input.type === 'password') {
+          input.type = 'text';
+          eyeOn.style.display = 'none';
+          eyeOff.style.display = '';
+        } else {
+          input.type = 'password';
+          eyeOn.style.display = '';
+          eyeOff.style.display = 'none';
+        }
+      });
+    })();
+  </script>
+<!-- CLIENT CARD PANEL -->
+<div class="client-overlay" id="client-overlay"></div>
+<div class="client-panel" id="client-panel">
+  <div class="client-panel-header">
+    <div class="client-panel-title-row">
+      <div class="client-avatar-circle" id="client-avatar">?</div>
+      <div class="client-panel-title-info">
+        <h2 class="client-panel-name" id="client-panel-name">Chargement...</h2>
+        <span class="client-panel-type" id="client-panel-type"></span>
+      </div>
+    </div>
+    <button class="client-panel-close" id="client-panel-close" title="Fermer">&times;</button>
+  </div>
+  <div class="client-panel-body" id="client-panel-body">
+    <div class="client-loading" id="client-loading">
+      <div class="client-spinner"></div>
+      <span>Chargement de la fiche...</span>
+    </div>
+    <div class="client-content" id="client-content" style="display:none">
+      <!-- Societe -->
+      <div class="client-section">
+        <div class="client-section-title">Entreprise</div>
+        <div class="client-field" id="client-societe">-</div>
+      </div>
+      <!-- Contact -->
+      <div class="client-section">
+        <div class="client-section-title">Contact</div>
+        <div class="client-info-grid">
+          <div class="client-info-item">
+            <svg class="client-info-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            <span id="client-email">-</span>
+          </div>
+          <div class="client-info-item">
+            <svg class="client-info-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            <span id="client-telephone">-</span>
+          </div>
+        </div>
+      </div>
+      <!-- Informations -->
+      <div class="client-section">
+        <div class="client-section-title">Informations</div>
+        <div class="client-info-grid">
+          <div class="client-info-item">
+            <span class="client-info-label">Status</span>
+            <span class="client-tag" id="client-status">-</span>
+          </div>
+          <div class="client-info-item">
+            <span class="client-info-label">Agent</span>
+            <span id="client-agent-assigne">-</span>
+          </div>
+          <div class="client-info-item">
+            <span class="client-info-label">Abonnement</span>
+            <span class="client-tag" id="client-abonnement">-</span>
+          </div>
+          <div class="client-info-item">
+            <span class="client-info-label">Canal</span>
+            <span id="client-canal">-</span>
+          </div>
+        </div>
+      </div>
+      <!-- Notes -->
+      <div class="client-section">
+        <div class="client-section-title">Notes</div>
+        <div class="client-notes" id="client-notes">-</div>
+      </div>
+    </div>
+    <!-- Error state -->
+    <div class="client-error" id="client-error" style="display:none">
+      <span>Impossible de charger la fiche client.</span>
+    </div>
+  </div>
+  <div class="client-panel-footer">
+    <a href="#" class="client-btn-notion" id="client-btn-notion" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+      Voir dans Notion
+    </a>
+  </div>
+</div>
+
+<script src="js/app.min.js?v=v14-1"></script>
+</body>
+</html>

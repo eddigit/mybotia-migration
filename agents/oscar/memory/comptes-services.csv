@@ -1,0 +1,34 @@
+Service,Email utilisé,Type,Coût mensuel,Statut,Action,URL
+EMERGENT,gilleskorzec@gmail.com (?),IA Prototypage,~500€ (!),Actif,RÉSILIER URGENT,emergent.sh
+BASE44,?,IA Prototypage,~25€,Actif,RÉSILIER,base44.com
+ChatGPT / OpenAI,?,IA Chat,~8€,Actif,RÉSILIER (doublon Claude),chat.openai.com
+Perplexity AI,?,IA Recherche,~21€,Actif,RÉSILIER,perplexity.ai
+Cursor,?,IDE IA,~21€,Actif,RÉSILIER,cursor.com
+Manus AI,?,IA,~10€,Actif,RÉSILIER,manus.ai
+GUSE INC,?,IA (?),~22€,Actif,RÉSILIER,?
+BLINK.NEW,?,IA Prototypage,~21€,Actif,RÉSILIER,blink.new
+Suno,?,IA Musique,~10€,Actif,RÉSILIER,suno.ai
+Kling AI,?,IA Vidéo,~6€,Actif,RÉSILIER,klingai.com
+Cline Bot,?,IA,~5€,Actif,RÉSILIER,?
+Verdent AI,?,IA,~10€,Actif,RÉSILIER,?
+CBA*Eventure,?,?,~10€,Actif,RÉSILIER,?
+Brave (Leo),?,Browser IA,~9€,Actif,RÉSILIER,brave.com
+Vectr,?,Design,~4€,Actif,RÉSILIER,vectr.com
+EPOCH.COM AIPX,?,?,~23€,Actif,RÉSILIER,?
+Wondershare,?,Logiciel,~60€,Actif (?),VÉRIFIER,wondershare.com
+Claude Pro,gilleskorzec@gmail.com,IA (Oscar),90€,Actif,GARDER,claude.ai
+Anthropic API,gilleskorzec@gmail.com,API IA,~6€/jour,Actif,GARDER,console.anthropic.com
+Google One,gilleskorzec@gmail.com + doublon?,Cloud,~56€ (2x28),Actif,GARDER 1 SEUL,one.google.com
+Wispr,?,Voice-to-text,~15€,Actif,À DISCUTER,wispr.ai
+GitHub,?,Dev,~33€,Actif,DOWNGRADE?,github.com
+Calendly,?,RDV,~14€,Actif,À DISCUTER,calendly.com
+Qonto,gilleskorzec@gmail.com,Banque,27.60€,Actif,GARDER,qonto.com
+Free Mobile,?,Téléphone,29.99€,Actif,GARDER,mobile.free.fr
+Vercel,gilleskorzec@gmail.com,Hébergement,~17€,Actif,GARDER,vercel.com
+GoDaddy,?,Domaines,~13€,Actif,GARDER,godaddy.com
+LWS,?,Hébergement,~12€,Actif,GARDER,lws.fr
+Cloudflare,?,CDN,~2€,Actif,GARDER,cloudflare.com
+Apple (multiples),?,Apps/iCloud,50-100€ (?),Chaos,FAIRE LE MÉNAGE,apple.com
+Gmail - gilleskorzec@gmail.com,PRINCIPAL,Email perso,-,Actif,-,-
+Gmail - coachdigitalparis@gmail.com,PRO,Email pro,-,Actif,-,-
+Gmail - oscarcoachdigital@gmail.com,OSCAR,Email Oscar,-,Actif,-,-

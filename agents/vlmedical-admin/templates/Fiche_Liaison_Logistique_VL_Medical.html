@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Fiche de Liaison Logistique - VL Medical</title>
+    <style>
+        @page {
+            size: A4;
+            margin: 15mm;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            font-size: 10pt;
+            line-height: 1.4;
+            color: #000;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 4px solid #003366;
+        }
+        .header h1 {
+            color: #003366;
+            font-size: 20pt;
+            margin: 0 0 5px 0;
+            font-weight: bold;
+        }
+        .header .subtitle {
+            font-size: 9pt;
+            color: #666;
+            margin: 3px 0;
+        }
+        .meta-info {
+            display: table;
+            width: 100%;
+            margin: 10px 0 15px 0;
+            border: 2px solid #003366;
+            background-color: #f0f8ff;
+        }
+        .meta-row {
+            display: table-row;
+        }
+        .meta-cell {
+            display: table-cell;
+            padding: 8px;
+            border: 1px solid #003366;
+            width: 25%;
+        }
+        .meta-cell strong {
+            color: #003366;
+        }
+        .section {
+            margin: 12px 0;
+            padding: 10px;
+            border: 2px solid #003366;
+            background-color: #f9f9f9;
+        }
+        .section-title {
+            background-color: #003366;
+            color: white;
+            padding: 5px 10px;
+            font-size: 11pt;
+            font-weight: bold;
+            margin: -10px -10px 10px -10px;
+        }
+        .field-row {
+            display: table;
+            width: 100%;
+            margin: 5px 0;
+        }
+        .field-label {
+            display: table-cell;
+            width: 40%;
+            font-weight: bold;
+            padding: 3px 5px;
+        }
+        .field-value {
+            display: table-cell;
+            width: 60%;
+            padding: 3px 5px;
+            border-bottom: 1px solid #666;
+        }
+        .checklist {
+            margin: 10px 0;
+            padding: 10px;
+            background-color: #fff3cd;
+            border-left: 4px solid #ff9800;
+        }
+        .checklist-item {
+            margin: 5px 0;
+            font-size: 10pt;
+        }
+        .signature-section {
+            margin-top: 15px;
+            padding: 10px;
+            border: 2px solid #003366;
+            background-color: #f0f8ff;
+        }
+        .signature-box {
+            display: inline-block;
+            width: 48%;
+            vertical-align: top;
+            margin: 5px 0;
+        }
+        .sig-line {
+            border-bottom: 2px solid #000;
+            display: inline-block;
+            min-width: 150px;
+        }
+        .footer {
+            text-align: center;
+            font-size: 8pt;
+            color: #666;
+            margin-top: 15px;
+            padding-top: 8px;
+            border-top: 2px solid #003366;
+        }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <h1>📋 FICHE DE LIAISON LOGISTIQUE</h1>
+    <p class="subtitle"><strong>VL MEDICAL SAS</strong></p>
+    <p class="subtitle">À remplir AVANT toute opération par tous les acteurs</p>
+</div>
+
+<div class="meta-info">
+    <div class="meta-row">
+        <div class="meta-cell">
+            <strong>N° Opération :</strong><br>
+            <span style="font-size: 12pt;">_________________</span>
+        </div>
+        <div class="meta-cell">
+            <strong>Date opération :</strong><br>
+            <span style="font-size: 12pt;">___ / ___ / 20___</span>
+        </div>
+        <div class="meta-cell">
+            <strong>Client final :</strong><br>
+            <span style="font-size: 12pt;">_________________</span>
+        </div>
+        <div class="meta-cell">
+            <strong>Pays destination :</strong><br>
+            <span style="font-size: 12pt;">_________________</span>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <div class="section-title">🏢 LOGISTICIEN / ENTREPÔT</div>
+    <div class="field-row">
+        <div class="field-label">Nom société :</div>
+        <div class="field-value">&nbsp;</div>
+    </div>
+    <div class="field-row">
+        <div class="field-label">Adresse complète :</div>
+        <div class="field-value">&nbsp;</div>
+    </div>
+    <div class="field-row">
+        <div class="field-label">Chef de quai (nom + fonction) :</div>
+        <div class="field-value">&nbsp;</div>
+    </div>
+    <div class="field-row">
+        <div class="field-label">Téléphone direct chef de quai :</div>
+        <div class="field-value">&nbsp;</div>
+    </div>
+    <div class="field-row">
+        <div class="field-label">Email entrepôt :</div>
+        <div class="field-value">&nbsp;</div>
+    </div>
+    <div class="field-row">
+        <div class="field-label">Horaires accès / chargement :</div>
+        <div class="field-value">&nbsp;</div>
+    </div>
+</div>
+
+<div class="section">
+    <div class="section-title">🚚 TRANSPORTEUR</div>
+    <div class="field-row">
+        <div class="field-label">Société de transport :</div>
+        <div class="field-value">&nbsp;</div>
+    </div>
+    <div class="field-row">
+        <div class="field-label">Contact planning (nom + tél) :</div>
+        <div class="field-value">&nbsp;</div>
+    </div>
+    <div class="field-row">
+        <div class="field-label">Nom chauffeur prévu :</div>
+        <div class="field-value">&nbsp;</div>
+    </div>
+    <div class="field-row">
+        <div class="field-label">Téléphone chauffeur :</div>
+        <div class="field-value">&nbsp;</div>
+    </div>
+    <div class="field-row">
+        <div class="field-label">Immatriculation véhicule :</div>
+        <div class="field-value">&nbsp;</div>
+    </div>
+    <div class="field-row">
+        <div class="field-label">ETA (heure arrivée prévue) :</div>
+        <div class="field-value">&nbsp;</div>
+    </div>
+</div>
+
+<div class="section">
+    <div class="section-title">🤝 INTERMÉDIAIRE / AGENT (si applicable)</div>
+    <div class="field-row">
+        <div class="field-label">Nom :</div>
+        <div class="field-value">&nbsp;</div>
+    </div>
+    <div class="field-row">
+        <div class="field-label">Téléphone :</div>
+        <div class="field-value">&nbsp;</div>
+    </div>
+    <div class="field-row">
+        <div class="field-label">Email :</div>
+        <div class="field-value">&nbsp;</div>
+    </div>
+    <div class="field-row">
+        <div class="field-label">Rôle / Mission :</div>
+        <div class="field-value">&nbsp;</div>
+    </div>
+</div>
+
+<div class="section">
+    <div class="section-title">📦 MARCHANDISE</div>
+    <div class="field-row">
+        <div class="field-label">Description produits :</div>
+        <div class="field-value">&nbsp;</div>
+    </div>
+    <div class="field-row">
+        <div class="field-label">Nombre de palettes :</div>
+        <div class="field-value">&nbsp;</div>
+    </div>
+    <div class="field-row">
+        <div class="field-label">Poids total estimé (kg) :</div>
+        <div class="field-value">&nbsp;</div>
+    </div>
+    <div class="field-row">
+        <div class="field-label">Type de palette (Europe 80×120 / autre) :</div>
+        <div class="field-value">&nbsp;</div>
+    </div>
+    <div class="field-row">
+        <div class="field-label">Destination finale (ville + pays) :</div>
+        <div class="field-value">&nbsp;</div>
+    </div>
+    <div class="field-row">
+        <div class="field-label">Incoterm (EXW / FCA / CIF / autre) :</div>
+        <div class="field-value">&nbsp;</div>
+    </div>
+</div>
+
+<div class="checklist">
+    <strong style="font-size: 11pt;">✅ CHECKLIST AVANT OPÉRATION</strong>
+    <div class="checklist-item">☐ Bon de chargement préparé et transmis au logisticien</div>
+    <div class="checklist-item">☐ Coordonnées logisticien (chef de quai + téléphone) confirmées</div>
+    <div class="checklist-item">☐ Transporteur briefé sur les conditions de départ</div>
+    <div class="checklist-item">☐ Documents export/CMR prêts</div>
+    <div class="checklist-item">☐ Conditions paiement/autorisation de départ claires</div>
+    <div class="checklist-item">☐ Contact VL Medical (Jean-Luc AUBAGNAC +33 6 18 24 40 13) communiqué</div>
+</div>
+
+<div class="signature-section">
+    <p style="font-weight: bold; margin: 0 0 10px 0;">📝 VALIDATION ET SIGNATURES</p>
+    
+    <div class="signature-box">
+        <p style="font-size: 9pt; margin: 5px 0;"><strong>Intermédiaire / Agent :</strong></p>
+        <p style="font-size: 9pt; margin: 5px 0;">Nom : <span class="sig-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></p>
+        <p style="font-size: 9pt; margin: 5px 0;">Date : <span class="sig-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></p>
+        <p style="font-size: 9pt; margin: 15px 0 5px 0;">Signature :</p>
+        <div style="border-bottom: 2px solid #000; width: 150px; margin-top: 20px;"></div>
+    </div>
+    
+    <div class="signature-box" style="float: right;">
+        <p style="font-size: 9pt; margin: 5px 0;"><strong>VL Medical :</strong></p>
+        <p style="font-size: 9pt; margin: 5px 0;">Nom : <span class="sig-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></p>
+        <p style="font-size: 9pt; margin: 5px 0;">Date : <span class="sig-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></p>
+        <p style="font-size: 9pt; margin: 15px 0 5px 0;">Signature :</p>
+        <div style="border-bottom: 2px solid #000; width: 150px; margin-top: 20px;"></div>
+    </div>
+    <div style="clear: both;"></div>
+</div>
+
+<div class="footer">
+    <p><strong>VL MEDICAL SAS</strong> • SIRET 853 225 100 00025 • 190 Rue Topaze, 13510 Éguilles, France</p>
+    <p>Contact : Jean-Luc AUBAGNAC • +33 6 18 24 40 13 • jeanluc@aubagnac.com</p>
+    <p style="margin-top: 8px; font-size: 7pt;">
+        Document établi le 30 mars 2026 — Fiche de liaison logistique V1.0 — À remplir avant toute opération
+    </p>
+</div>
+
+</body>
+</html>

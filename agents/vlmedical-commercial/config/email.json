@@ -1,0 +1,10 @@
+{
+  "address": "eva.vlmedical@collaborateur.pro",
+  "password": "Eva-Collab2026!",
+  "name": "Eva — VL Medical",
+  "imap_host": "imap.migadu.com",
+  "imap_port": 993,
+  "smtp_host": "smtp.migadu.com",
+  "smtp_port": 465,
+  "signature": "\n---\nEva — Responsable Commerciale\nVL Medical SAS\nEmail: eva.vlmedical@collaborateur.pro"
+}
